@@ -1,0 +1,96 @@
+﻿@model SellerImageModel
+@{
+    ViewData["Title"] = "SellerRegister";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<br />
+<br />
+
+
+<div style="position:relative;width:600px;height:auto;margin:auto;">
+    <form class="btn-outline-primary" asp-action="SellerRegister" enctype="multipart/form-data"
+          asp-controller="Seller" method="post">
+        <input type="hidden" asp-for="@Model.UserID" value="@ViewBag.AppUserId" />
+        <div class="form-group">
+            <strong style="font-size:20px;">Satıcı Başvuru Formu</strong>
+        </div>
+        <div class="form-group">
+            <label>Firma İsmi</label>
+            <input type="text" class="form-control" asp-for="@Model.CompanyName">
+        </div>
+
+        <div class="form-group">
+            <label>Vergi Numarası</label>
+            <input type="text" class="form-control" asp-for="@Model.TaxNumber">
+        </div>
+        <div class="form-group">
+            <label>Adres</label>
+            <textarea class="form-control" rows="3" asp-for="@Model.SellerAddress"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Logo</label>
+            <input type="file" name="SellerImage"/><br />
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-6 mb-6">
+                <label for="validationTooltip04">İl</label>
+                <select class="custom-select" style="width:100%;border-color:#dbdbdb;color:#777;
+    font:14px Arial,sans-serif;height:34px;" id="City" asp-items="ViewBag.City" asp-for="@Model.CityID" required>
+                    <option selected disabled value="">İl Seçiniz...</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6 mb-6">
+                <label for="validationTooltip04">İlçe</label>
+                <select class="custom-select" style="width:100%;border-color:#dbdbdb;color:#777;
+    font:14px Arial,sans-serif;height:34px;" id="District" asp-for="@Model.DistrictID" required>
+                    @*<option selected disabled value="">İlçe Seçiniz...</option>*@
+                    <option></option>
+                </select>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <button class="btn btn-primary" style="width:100%;margin-top:20px;" type="submit">Gönder</button>
+
+    </form>
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+
+@section ScriptSellerCity{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#City").change(function () {
+                $("#District").empty();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("LoadDistrict")',
+                    dataType: 'json',
+                    data: { id: $("#City").val() },
+
+                    success: function (states) {
+                        $("#District").append('<option value="' + -1 + '">' + "İlçe Seçiniz..." + '</option>');
+                        $.each(states, function (i, state) {
+                            $("#District").append('<option value="' + state.value + '">' + state.text + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
+
+ 

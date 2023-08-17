@@ -1,0 +1,28 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "ProductAddTwoPage";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h1>ProductAddTwoPage</h1>
+
+<form asp-action="ProductAdd" asp-controller="Product" method="post" style="margin:50px;">
+
+    <input type="hidden" asp-for="ProductName" value="@ViewBag.prop.ProductName" />
+    <input type="hidden" asp-for="TradeMark" value="@ViewBag.prop.TradeMark" />
+    <input type="hidden" asp-for="ProductCode" value="@ViewBag.prop.ProductCode" />
+    <input type="hidden" asp-for="MarketPrice" value="@ViewBag.prop.MarketPrice" />
+    <input type="hidden" asp-for="DiscountedPrice" value="@ViewBag.prop.DiscountedPrice" />
+    <input type="hidden" asp-for="UnitsInStock" value="@ViewBag.prop.UnitsInStock" />
+    <input type="hidden" asp-for="CategoryID" value="@ViewBag.prop.CategoryID" />
+
+
+    <select asp-items="ViewBag.SubCat" asp-for="SubCategoryID" class="form-control">
+        <option value="-1">Kategori Seçiniz</option>
+    </select><br />
+
+  
+
+
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>

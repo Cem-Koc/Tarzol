@@ -1,0 +1,22 @@
+﻿@model SubCategory
+@{
+    ViewData["Title"] = "SubCategoryUpdate";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Alt Kategori Güncelle</h1>
+<br />
+<form asp-action="SubCategoryUpdate" method="post">
+    <input type="hidden" value="@Model.ID" asp-for="ID" />
+
+
+    <div class="form-group">
+        <label>Alt Kategori Adı</label><br />
+        <input type="text" class="form-control" asp-for="SubCategoryName" value="@Model.SubCategoryName" />
+    </div>
+    
+    <div class="form-group">
+        <button class="btn btn-success" style="float:right;width:180px;">Güncelle</button>
+    </div>
+</form>
+

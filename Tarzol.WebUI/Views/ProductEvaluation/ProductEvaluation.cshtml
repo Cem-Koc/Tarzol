@@ -1,0 +1,110 @@
+﻿@model ProductEvaluationModel
+@{
+    ViewData["Title"] = "ProductEvaluation";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="main">
+    <div class="container">
+
+        <div class="row margin-bottom-40">
+
+            <div class="col-md-12">
+                <h1>ÜRÜNÜ PUANLA VE YORUM GÖNDER</h1>
+                <div class="goods-page">
+                    <div class="goods-data clearfix">
+                        <div class="table-wrapper-responsive">
+                            <form class="login-form" asp-action="ProductEvaluation" asp-controller="ProductEvaluation" method="post">
+
+
+                                <table summary="Shopping cart">
+                                    <tr>
+                                        <th class="goods-page-image">RESİM</th>
+                                        <th class="goods-page-description">AÇIKLAMA</th>
+                                        <th class="goods-page-price">PUANINIZ</th>
+                                        <th class="goods-page-total" colspan="3">YORUMUNUZ</th>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="goods-page-image">
+                                            <div class="form-group">
+                                                <a asp-action="ViewProduct" asp-controller="Product" asp-route-id="@Model.OrderDetail.ProductID"><img src="~/ProductImage/Big/@Model.OrderDetail.Product.ImageOne" alt="Berry Lace Dress"></a>
+                                            </div>
+                                        </td>
+
+                                        <td class="goods-page-description">
+                                            <div class="form-group">
+                                                <strong><a href="javascript:;">@Model.OrderDetail.Product.TradeMark</a></strong>
+                                                <p><strong>@Model.OrderDetail.Product.ProductName</strong> <br /> Renk: @Model.OrderDetail.Product.ProductColor.Color; Beden: @Model.OrderDetail.Product.ProductSize.Size</p>
+                                                <em>@Model.OrderDetail.Product.ProductCode</em>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @if (Model.ProductRatingPoint == 0)
+                                            {
+                                                <div class="form-group">
+                                                    <div class="review">
+                                                        <input class="form-control" type="range" value="0" step="1" id="backing4" asp-for="ProductRatingPoint">
+                                                        <div class="rateit" data-rateit-backingfld="#backing4" data-rateit-resetable="false" data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="form-group">
+                                                    <div class="review">
+                                                        <div class="rateit" data-rateit-value="@Model.ProductRatingPoint" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            @if (Model.CommentContext == null)
+                                            {
+                                            <td style="font-size:16px;">
+                                                <div class="form-group">
+                                                    <textarea asp-for="CommentContext" class="form-control" cols="10" rows="4"></textarea><br />
+                                                </div>
+
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="font-size:16px;">
+                                                <div class="form-group">
+                                                    <textarea placeholder="@Model.CommentContext" class="disabled" cols="10" rows="4"></textarea><br />
+                                                </div>
+
+                                            </td>
+                                        }
+
+
+                                        </tr>
+
+
+
+
+
+
+                                </table>
+                                <input type="hidden" asp-for="ProductID" value="@Model.OrderDetail.ProductID" />
+                                <input type="hidden" asp-for="OrderID" value="@Model.OrderDetail.OrderID" />
+                                <input type="hidden" asp-for="returnUrl" value="/Order/Index/" />
+
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">GÖNDER<i class="fa fa-check"></i></button>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- END CONTENT -->
+        </div>
+
+    </div>
+</div>

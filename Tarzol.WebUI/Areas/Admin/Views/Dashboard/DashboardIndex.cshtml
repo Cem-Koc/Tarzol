@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "DashboardIndex";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        @await Component.InvokeAsync("MonthlySales")
+        @await Component.InvokeAsync("YearlyOrder")
+        @await Component.InvokeAsync("DailyEarnings")
+        @await Component.InvokeAsync("UserActivity")
+    </div>
+
+    @await Component.InvokeAsync("OrderDashboard")
+
+    <div class="row">
+        @await Component.InvokeAsync("DashboardMessageList")
+
+        <div class="col-lg-8">
+            @await Component.InvokeAsync("NewTodo")
+            @await Component.InvokeAsync("TodoList")
+        </div>
+            
+
+       
+
+
+    </div>
+</div>
+

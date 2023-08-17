@@ -1,0 +1,105 @@
+﻿@model UserOrderDetails
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="main">
+    <div class="container">
+
+        <div class="row margin-bottom-40">
+
+            <div class="col-md-12">
+                <h1>SİPARİŞLERİM</h1>
+                <div class="goods-page">
+                    <div class="goods-data clearfix">
+                        <div class="table-wrapper-responsive">
+                            <table summary="Shopping cart">
+                                <tr>
+                                    <th class="goods-page-image">SEPETTEKİ ÜRÜN RESİMLERİ</th>
+                                    <th class="goods-page-ref-no">SİPARİŞ NO</th>
+                                    <th class="goods-page-price">TOPLAM</th>
+                                    <th class="goods-page-total">SİPARİŞ TARİHİ</th>
+                                    <th class="goods-page-total" colspan="2">TESLİMAT DURUMU</th>
+                                </tr>
+                                @{ decimal total = 0;}
+                                @{ string deliveryStatus = null;}
+                                @foreach (var order in Model.Orders)
+                                {
+
+                                    if (order == null)
+                                    {
+                                        <tr>
+                                            <td colspan="6">Kayıtlı Siparişiniz Bulunmamaktadır.</td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        deliveryStatus = null;
+                                        <tr>
+                                            <td class="goods-page-image" style="width:500px !important;">
+                                                @foreach (var orderDetail in Model.OrderDetails)
+                                                {
+                                                    if (orderDetail.OrderID == order.ID)
+                                                    {
+
+                                                        <a asp-action="ViewProduct" asp-controller="Product" asp-route-id="@orderDetail.ProductID"><img src="~/ProductImage/Big/@orderDetail.Product.ImageOne"></a>
+                                                        total = (orderDetail.Quantity * orderDetail.UnitPrice) + total;
+
+                                                        if (orderDetail.WasDelivered == false)
+                                                        {
+                                                            deliveryStatus = "Devam Ediyor";
+                                                        }
+                                                    }
+                                                }
+                                            </td>
+
+
+                                            <td>
+                                                <span style="font-size:16px;">@order.OrderNumber</span>
+                                            </td>
+
+                                            <td class="goods-page-price">
+                                                <span style="font-size:16px;">@total.ToString("0.00")TL</span>
+                                            </td>
+                                            <td class="goods-page-total">
+                                                <span style="font-size:16px;">@order.OrderDate.ToShortDateString()</span>
+                                            </td>
+                                            <td>
+                                                @if (deliveryStatus == null)
+                                                {
+                                                    <span style="font-size:16px;">Teslim Edildi</span>
+                                                }
+                                                else
+                                                {
+                                                    <span style="font-size:16px;">
+                                                        @deliveryStatus
+                                                    </span>
+                                                }
+                                            </td>
+                                            <td class="del-goods-col">
+                                                
+                                                <a asp-action="OrderDetailPage" asp-controller="Order" asp-route-orderId="@order.ID" class="btn btn-default">Detaylar &nbsp;<i class="glyphicon glyphicon-search"></i></a>
+                                            </td>
+                                        </tr>
+
+                                    }
+
+                                }
+
+
+
+
+                            </table>
+                        </div>
+                    </div>
+
+                  
+                </div>
+            </div>
+         
+        </div>
+
+    </div>
+</div>
+

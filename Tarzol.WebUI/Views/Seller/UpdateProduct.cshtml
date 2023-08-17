@@ -1,0 +1,126 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "UpdateProduct";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="main">
+    <div class="container">
+
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40" style="margin-top:20px;">
+
+            @await Html.PartialAsync("LeftMenu")
+            <div class="col-md-9">
+                <form asp-action="UpdateProduct" asp-controller="Seller" method="post" style="margin:50px;" enctype="multipart/form-data" class="form-horizontal" asp-route-userName="@User.Identity.Name">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label>Ürün Adı</label>
+                            <input type="text" asp-for="ProductName" class="form-control" /><br />
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label>Marka</label>
+                            <input type="text" asp-for="TradeMark" class="form-control" /><br />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label>Ürün Kodu</label>
+                            <input type="text" asp-for="ProductCode" class="form-control" /><br />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Stok Adeti</label>
+                            <input type="text" asp-for="UnitsInStock" class="form-control" /><br />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label>Ürün Piyasa Fiyatı</label>
+                            <input type="text" asp-for="MarketPrice" class="form-control" /><br />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Tarzol'a Özel Fiyat</label>
+                            <input type="text" asp-for="DiscountedPrice" class="form-control" /><br />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label>Ürün Rengi</label>
+                            <select asp-items="ViewBag.Color" asp-for="ProductColorID" class="form-control">
+                                <option value="">Renk Seçiniz</option>
+                            </select><br />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Ürün Bedeni</label>
+                            <select asp-items="ViewBag.Size" asp-for="ProductSizeID" class="form-control">
+                                <option value="">Beden Seçiniz</option>
+                            </select><br />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label>Üst Kategori</label>
+                            <select id="categoryid" asp-items="ViewBag.Kategori" asp-for="CategoryID" class="form-control">
+                                <option value="">Kategori Seçiniz</option>
+                            </select><br />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Alt Kategori</label>
+                            <select id="subcategoryid" asp-for="SubCategoryID" class="form-control">
+                            </select><br />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ürün Açıklaması</label>
+                        <textarea asp-for="Description" class="form-control" cols="10" rows="4"></textarea><br />
+                    </div>
+                    <div class="form-group">
+                        <label>Ürün Detay Bilgileri</label>
+                        <textarea asp-for="ProductInformation" class="form-control" cols="10" rows="10"></textarea><br />
+                    </div>
+
+                    <input type="hidden" value="@Model.ID" asp-for="ID" />
+                    <input type="hidden" value="@Model.ImageOne" asp-for="ImageOne" />
+                    <input type="hidden" value="@Model.ImageTwo" asp-for="ImageTwo" />
+                    <input type="hidden" value="@Model.ImageThree" asp-for="ImageThree" />
+                    <input type="hidden" value="@Model.ImageFour" asp-for="ImageFour" />
+                    <input type="hidden" value="@Model.Status" asp-for="Status" />
+                    <input type="hidden" value="@Model.SellerID" asp-for="SellerID" />
+                    <input type="hidden" value="@Model.CargoID" asp-for="CargoID" />
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary form-control">Ürünü Güncelle ve Satışa Başla</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section ScriptProductCategory{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#categoryid").change(function () {
+                $("#subcategoryid").empty();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("LoadSubCats")',
+                    dataType: 'json',
+                    data: { id: $("#categoryid").val() },
+                    success: function (states) {
+                        $("#subcategoryid").append('<option value="' + -1 + '">' + "Alt Özellik" + '</option>');
+                        $.each(states, function (i, state) {
+                            $("#subcategoryid").append('<option value="' + state.value + '">' + state.text + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
+

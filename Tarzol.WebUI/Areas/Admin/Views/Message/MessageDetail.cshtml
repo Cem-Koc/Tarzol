@@ -1,0 +1,102 @@
+﻿@model MailDetailModel
+@{
+    ViewData["Title"] = "MessageDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        @await Component.InvokeAsync("MailFolders")
+        <div class="col-lg-9 animated fadeInRight">
+            <div class="mail-box-header">
+                <div class="float-right tooltip-demo">
+                    <a asp-action="ReplyMail" asp-route-messageId="@Model.Message.ID" class="btn btn-white btn-sm" data-toggle="tooltip"><i class="fa fa-reply"></i> Yanıtla</a>
+
+                </div>
+
+
+                @foreach (var mail in Model.Messages)
+                {
+
+                    if (mail.ID != Model.Message.ID)
+                    {
+                        <div class="mail-box-header">
+                            <h2>
+                                @mail.CreatedBy
+                            </h2>
+                            <div class="mail-tools tooltip-demo m-t-md">
+                                <h3>
+                                    <span class="font-normal">Konu: </span>@mail.MessageTitle
+                                </h3>
+                                <h5>
+                                    <span class="float-right font-normal">@mail.CreatedDate</span>
+                                    <span class="font-normal">Kimden: </span>@mail.SenderMail
+                                </h5>
+                                <h5>
+                                    <span class="font-normal">Kime: </span>@mail.ReceiverMail
+                                </h5>
+
+                            </div>
+                        </div>
+                        <div class="mail-box">
+
+
+                            <div class="mail-body">
+                                @mail.MessageContent
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+                        <hr />
+                    }
+                    else
+                    {
+                        <div class="mail-box-header" style="background-color:cornsilk !important">
+                            <h2>
+                                @mail.CreatedBy
+                            </h2>
+                            <div class="mail-tools tooltip-demo m-t-md">
+                                <h3>
+                                    <span class="font-normal">Konu: </span>@mail.MessageTitle
+                                </h3>
+                                <h5>
+                                    <span class="float-right font-normal">@mail.CreatedDate</span>
+                                    <span class="font-normal">Kimden: </span>@mail.SenderMail
+                                </h5>
+                                <h5>
+                                    <span class="font-normal">Kime: </span>@mail.ReceiverMail
+                                </h5>
+
+                            </div>
+                        </div>
+                        <div class="mail-box" style="background-color:cornsilk !important">
+
+
+                            <div class="mail-body">
+                                @mail.MessageContent
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+                        <hr />
+                    }
+
+                }
+
+
+            </div>
+            </div>
+    </div>
+</div>
+
+
+<script>
+        $(document).ready(function(){
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>

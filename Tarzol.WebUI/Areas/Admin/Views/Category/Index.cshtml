@@ -1,0 +1,58 @@
+﻿@model List<Category>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Ana Kategori Listesi</h1>
+<br />
+<table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Kategori Adı</th>
+            <th>Açıklama</th>
+            <th class="text-right" data-sort-ignore="true">Aktif & Pasif</th>
+            <th class="text-right" style="padding-right:20px;" data-sort-ignore="true">Güncelle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <th>@category.ID</th>
+                <td>@category.CategoryName</td>
+                <td>
+                    @if (category.Description == null)
+                    {
+                        <span>Kategori için açıklama metni mevcut değildir.</span>
+                    }
+                    else
+                    {
+                        @category.Description
+                    }
+                </td>
+                <td class="text-right">
+                    @if (category.Status == Tarzol.Core.Enums.Status.Active)
+                    {
+                        <a asp-action="CategoryActiveAndPassive" asp-route-categoryId="@category.ID" class="btn btn-outline-danger">Pasif Yap</a>
+                    }
+                    else
+                    {
+                        <a asp-action="CategoryActiveAndPassive" asp-route-categoryId="@category.ID" class="btn btn-outline-warning">Aktif Yap</a>
+
+                    }
+                </td>
+                <td class="text-right"><a asp-action="CategoryUpdate" asp-route-categoryId="@category.ID" class="btn btn-outline-info">Güncelle</a></td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="6">
+                <ul class="pagination float-right"></ul>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<a asp-action="CategoryAdd"  class="btn btn-success">Kategori Ekle</a>

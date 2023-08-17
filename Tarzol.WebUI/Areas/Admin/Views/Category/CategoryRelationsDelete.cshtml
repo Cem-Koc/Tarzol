@@ -1,0 +1,38 @@
+﻿@model CategoryRelationsModel
+@{
+    ViewData["Title"] = "CategoryRelationsDelete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Kategoriye Ait Alt Kategori Sil</h1>
+
+<form asp-action="CategoryRelationsDelete" method="post">
+    
+    <table class="table table-striped">
+        <tr>
+            <th>#</th>
+            <th>Kategori Adı</th>
+            <th colspan="3">Alt Kategorileri</th>
+        </tr>
+        <tr>
+            <th>@Model.Category.ID</th>
+            
+            <td>@Model.Category.CategoryName</td>
+            <td>
+                @foreach (var subCategory in Model.Category.CategoryAndSubCategories)
+                {
+                    <button class="disabled btn btn-outline-primary">@subCategory.SubCategory.SubCategoryName</button>
+                }
+            </td>
+            <td>
+                <select asp-items="@ViewBag.SubCategory" asp-for="SubCategoryID" class="form-control">
+                    <option value="">Alt Kategori Seçiniz</option>
+                </select>
+            </td>
+            <td>
+                <input type="hidden" asp-for="CategoryID" value="@Model.Category.ID" />
+                <button class="btn btn-outline-danger">Sil</button>
+            </td>
+        </tr>
+    </table>
+</form>

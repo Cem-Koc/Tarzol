@@ -1,0 +1,87 @@
+﻿@model Customer
+@{
+    ViewData["Title"] = "AddCustomer";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="main">
+    <div class="container">
+
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+            <h1>TESLİMAT DETAYLARI</h1>
+            <div id="shipping-address-content" class="checkout-page" style="background-color:#fff !important;">
+                <div class="panel-body row">
+                    <form asp-action="AddCustomer" asp-controller="Customer" method="post">
+                        <div class="col-md-6 col-sm-6">
+
+                            <div class="form-group">
+                                <label for="firstname-dd">İsim <span class="require">*</span></label>
+                                <input asp-for="CustomerFirstName" type="text" id="firstname-dd" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname-dd">Soyisim <span class="require">*</span></label>
+                                <input asp-for="CustomerLastName" type="text" id="lastname-dd" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="telephone-dd">Telefon <span class="require">*</span></label>
+                                <input asp-for="CustomerPhone" type="text" id="telephone-dd" class="form-control">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="address1-dd">Adres<span class="require">*</span></label>
+                                <input asp-for="Address" type="text" id="address1-dd" class="form-control">
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="country-dd">İl <span class="require">*</span></label>
+        <select asp-items="ViewBag.City" asp-for="CityID" class="form-control input-sm custom-select" id="City">
+            <option selected disabled value="">İl Seçiniz...</option>
+        </select>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="region-state-dd">İlçe <span class="require">*</span></label>
+                                <select asp-for="DistrictID" class="form-control input-sm" id="District">
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-primary  pull-right" type="submit" id="button-shipping-address" data-toggle="collapse" data-parent="#checkout-page" data-target="#shipping-method-content">Kaydet</button>
+                            @*<button class="btn btn-primary  pull-right" type="submit" id="button-shipping-address" data-toggle="collapse" data-parent="#checkout-page" data-target="#shipping-method-content" style="margin-right:10px;">KAYITLI TESLİMAT BİLGİLERİM</button>*@
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptCustomerCity{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#City").change(function () {
+                $("#District").empty();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("LoadDistrict")',
+                    dataType: 'json',
+                    data: { id: $("#City").val() },
+
+                    success: function (states) {
+                        $("#District").append('<option value="' + -1 + '">' + "İlçe Seçiniz..." + '</option>');
+                        $.each(states, function (i, state) {
+                            $("#District").append('<option value="' + state.value + '">' + state.text + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

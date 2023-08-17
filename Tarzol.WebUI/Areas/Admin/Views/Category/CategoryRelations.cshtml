@@ -1,0 +1,45 @@
+﻿@model CategoryAndSubCategoryModel
+@{
+    ViewData["Title"] = "CategoryRelations";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Kategori İlişkileri</h1>
+
+<br />
+<table class="footable table table-stripped toggle-arrow-tiny">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Kategori Adı</th>
+
+            <th colspan="2" data-sort-ignore="true">Alt Kategorileri</th>
+
+        </tr>
+    </thead>
+    @foreach (var category in Model.Categories)
+    {
+        <tr>
+            <th>@category.ID</th>
+            <td>@category.CategoryName</td>
+           
+            <td>
+                @foreach (var subCategory in Model.CategoryAndSubCategories)
+                {
+                    if (category.ID == subCategory.CategoryID)
+                    {
+                        <button class="disabled btn btn-outline-primary">@subCategory.SubCategory.SubCategoryName</button>
+                    }
+
+                }
+            </td>
+
+            <td>
+                <a asp-action="CategoryRelationsDelete" asp-route-categoryId="@category.ID" class="btn btn-outline-danger">İlişki Sil &nbsp;<i class="fa fa-trash"></i></a>
+                &nbsp;&nbsp;&nbsp;
+                <a asp-action="CategoryRelationsAdd" asp-route-categoryId="@category.ID" class="btn btn-outline-info">İlişki Ekle &nbsp;<i class="fa fa-check-circle"></i></a>
+            </td>
+        </tr>
+    }
+
+</table>

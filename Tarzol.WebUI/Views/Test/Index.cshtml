@@ -1,0 +1,73 @@
+﻿@model ProductWithImageAdd
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<form asp-action="Index" asp-controller="Test" method="post" style="margin:50px;" enctype="multipart/form-data">
+    <label>Ürün Adı</label>
+    <input type="text" asp-for="ProductName" class="form-control" /><br />
+    <label>Marka</label>
+    <input type="text" asp-for="TradeMark" class="form-control" /><br />
+    <label>Ürün Kodu</label>
+    <input type="text" asp-for="ProductCode" class="form-control" /><br />
+    <label>Ürün Piyasa Fiyatı</label>
+    <input type="text" asp-for="MarketPrice" class="form-control" /><br />
+    <label>Tarzol'a Özel Fiyat</label>
+    <input type="text" asp-for="DiscountedPrice" class="form-control" /><br />
+    <label>Stok Adeti</label>
+    <input type="text" asp-for="UnitsInStock" class="form-control" /><br />
+    <label>Ürün Açıklaması</label>
+    <textarea  asp-for="Description" class="form-control" cols="10" rows="10"></textarea><br />
+                                                           
+
+    <label>Üst Kategori</label>
+    <select id="categoryid" asp-items="ViewBag.Kategori" asp-for="CategoryID" class="form-control">
+        <option value="">Kategori Seçiniz</option>
+    </select><br />
+
+    <label>Alt Kategori</label>
+    <select id="subcategoryid" asp-for="SubCategoryID" class="form-control">
+    </select><br />
+
+    <label>Ürün Rengi</label>
+    <select asp-items="ViewBag.Color" asp-for="ProductColorID" class="form-control">
+        <option value="">Renk Seçiniz</option>
+    </select><br />
+
+    <label>Ürün Bedeni</label>
+    <select asp-items="ViewBag.Size" asp-for="ProductSizeID" class="form-control">
+        <option value="">Beden Seçiniz</option>
+    </select><br />
+    <label>1.Resim</label>
+    <input type="file" name="ImageOne" /><br />
+    <label>2.Resim</label>
+    <input type="file" name="ImageTwo" /><br />
+    <label>3.Resim</label>
+    <input type="file" name="ImageThree" /><br />
+    <label>4.Resim</label>
+    <input type="file" name="ImageFour" /><br />
+    <br />
+    <button type="submit" class="btn btn-primary">Devam Et</button>
+</form>
+@section DenemeCem{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#categoryid").change(function () {
+                $("#subcategoryid").empty();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("LoadSubCats")',
+                    dataType: 'json',
+                    data: { id: $("#categoryid").val() },
+                    success: function (states) {
+                        $("#subcategoryid").append('<option value="' + -1 + '">' + "Alt Özellik" + '</option>');
+                        $.each(states, function (i, state) {
+                            $("#subcategoryid").append('<option value="' + state.value + '">' + state.text + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

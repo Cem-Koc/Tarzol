@@ -1,0 +1,100 @@
+﻿@model QuestionAndAnswerList
+
+<div class="tab-pane fade in active" id="Question">
+    @if (Model.Questions.Count() == 0)
+    {
+        <p>ÜRÜNE AİT HENÜZ SORU BULUNMAMAKTADIR.</p>
+    }
+    else
+    {
+        @foreach (var item in Model.Questions)
+        {
+            if (Model.Answers.Select(i => i.QuestionID == item.ID) == null)
+            {
+                <div class="review-item clearfix">
+                    <div class="review-item-submitted">
+                        <strong>@item.AppUser.FirstName&nbsp;@item.AppUser.LastName</strong>
+                        <em>@item.CreatedDate</em>
+
+                    </div>
+                    <div class="review-item-content">
+                        <p>@item.QuestionContent</p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="review-item clearfix">
+                    <div class="review-item-submitted">
+                        <strong>@item.AppUser.FirstName&nbsp;@item.AppUser.LastName</strong>
+                        <em>@item.CreatedDate</em>
+
+                    </div>
+                    <div class="review-item-content">
+                        <p>@item.QuestionContent</p>
+                    </div>
+                </div>
+                @foreach (var answer in Model.Answers)
+                {
+                    if (answer.QuestionID == item.ID)
+                    {
+                        <div class="review-item clearfix">
+                            <div class="review-item-submitted">
+                                <strong>@Model.Seller.CompanyName</strong>
+                                <em>@answer.CreatedDate</em>
+
+                            </div>
+                            <div class="review-item-content">
+                                <p>@answer.AnswerContent</p>
+                            </div>
+                        </div>
+                    }
+                }
+
+            }
+
+        }
+    }
+
+    @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+    {
+        <form asp-action="AskQuestion" asp-controller="Question" asp-route-userName="@User.Identity.Name"  class="reviews-form" role="form">
+            <h2>Satıcıya Soru Sor</h2>
+            <input type="hidden" asp-for="@Model.Question.ProductID" value="@ViewBag.productId" />
+            <div class="form-group">
+                <label for="review">En Kısa Sürede Sorunuza Cevap Verilecektir. <span class="require">*</span></label>
+                <textarea class="form-control" asp-for="@Model.Question.QuestionContent" rows="8" id="review"></textarea>
+            </div>
+
+            <div class="padding-top-20">
+                <button type="submit" class="btn btn-primary">Gönder</button>
+            </div>
+        </form>
+    }
+    else if (User.Identity.IsAuthenticated && (User.IsInRole("Seller") || User.IsInRole("Administrator")))
+    {
+
+        <div class="form-group">
+            <label for="review">Aktif Hesabınız İle Bu Alanda İşlem Yapamazsınız.<span class="require">*</span></label>
+        </div>
+    }
+    else
+    {
+        <form action="/Login/Index/" class="reviews-form" role="form">
+            <h2>Satıcıya Soru Sor</h2>
+
+            <div class="form-group">
+                <label for="review">Soru Sorabilmek için Giriş Yapmalısınız. <span class="require">*</span></label>
+               
+            </div>
+
+            <div class="padding-top-20">
+                <button type="submit" class="btn btn-primary">Giriş Yap</button>
+            </div>
+        </form>
+    }
+
+    <!-- END FORM-->
+</div>
+
+

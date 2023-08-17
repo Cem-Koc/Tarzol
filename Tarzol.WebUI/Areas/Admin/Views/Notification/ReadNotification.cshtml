@@ -1,0 +1,98 @@
+﻿@model List<Notification>
+@{
+    ViewData["Title"] = "ReadNotification";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        @await Component.InvokeAsync("NotificationFolders")
+        <div class="col-lg-9 animated fadeInRight">
+            <div class="mail-box-header">
+
+                <form method="get" action="index.html" class="float-right mail-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-sm" name="search" placeholder="E-posta Ara">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                Ara
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <h2>
+                    Geçmiş Bildirimler
+                </h2>
+                <div class="mail-tools tooltip-demo m-t-md">
+                    <div class="btn-group float-right">
+                        <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
+                        <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
+
+                    </div>
+                   
+
+                </div>
+            </div>
+            <div class="mail-box">
+
+                <table class="table table-hover table-mail" id="tblSelection">
+                    <tbody>
+                        @foreach (var notification in Model)
+                        {
+
+                            <tr class="read">
+                               
+
+                                <td class="mail-ontact"><a asp-action="MessageDetail" asp-controller="Message" asp-route-messageId="@notification.ID">@notification.CreatedBy</a></td>
+                                <td class="mail-subject">
+
+                                    @if (notification.NotificationStatus == Tarzol.Core.Enums.NotificationStatus.NegativeNotice)
+                                    {
+                                        <a asp-action="ProductDetail" asp-controller="Product" asp-route-productRatingId="@notification.CreativeInteractionID" asp-route-notificationPage="@true">
+                                            <span>Bir ürün hakkında olumsuz yorum yapıldı</span>
+                                        </a>
+                                    }
+                                    else if (notification.NotificationStatus == Tarzol.Core.Enums.NotificationStatus.NewProduct)
+                                    {
+                                        <a asp-action="ProductDetail" asp-controller="Product" asp-route-productId="@notification.CreativeInteractionID" asp-route-notificationPage="@true">
+                                            <span>Sisteme yeni bir ürün eklendi</span>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="SellerDetail" asp-controller="Seller" asp-route-sellerId="@notification.CreativeID">
+                                            <span>Sisteme yeni bir satıcı kayıt oldu</span>
+                                        </a>
+                                    }
+
+                                </td>
+                                <td class=""></td>
+                                <td class="text-right mail-date">
+                                    @if (notification.CreatedDate.Value.ToShortDateString() == DateTime.Now.ToShortDateString())
+                                    {
+                                        @notification.CreatedDate.Value.ToLongTimeString()
+                                    }
+                                    else
+                                    {
+                                        @notification.CreatedDate
+                                    }
+
+                                </td>
+                            </tr>
+
+
+
+                        }
+
+
+
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

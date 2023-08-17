@@ -1,0 +1,73 @@
+﻿@model Tarzol.WebUI.Models.AllCategoryModel
+
+    <div class="header-navigation">
+        <ul>
+            @foreach (var item in Model.Categories)
+            {
+                <li class="dropdown dropdown-megamenu">
+                    <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">                        
+                        @item.CategoryName
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="header-navigation-content">
+                                <div class="row">
+                                    <div class="col-md-4 header-navigation-col">
+                                        <h4>KATEGORİLER</h4>
+                                        <ul>
+                                            @foreach (var item1 in Model.CategoryAndSubCategories)
+                                            {
+                                                @if (item1.CategoryID == item.ID)
+                                                {
+                                                    <li>         
+                                                        <a asp-action="GetProductByCategoryList" asp-controller="Category" asp-route-ID="@item.ID" asp-route-SubCategoryID="@item1.SubCategoryID">
+                                                            @item1.SubCategory.SubCategoryName
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+
+
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4 header-navigation-col" >
+                                        <img src="~/ProductImage/CategoryImage/@item.ImageUrl" width="390" />
+                                    </div>
+                                    
+                                    <div class="col-md-12 nav-brands">
+                                        <ul>
+                                            <li><a href="shop-product-list.html"><img title="esprit" alt="esprit" src="~/Metronic-Shop-UI-master/theme/assets/pages/img/brands/esprit.jpg"></a></li>
+                                            <li><a href="shop-product-list.html"><img title="gap" alt="gap" src="~/Metronic-Shop-UI-master/theme/assets/pages/img/brands/gap.jpg"></a></li>
+                                            <li><a href="shop-product-list.html"><img title="next" alt="next" src="~/Metronic-Shop-UI-master/theme/assets/pages/img/brands/next.jpg"></a></li>
+                                            <li><a href="shop-product-list.html"><img title="puma" alt="puma" src="~/Metronic-Shop-UI-master/theme/assets/pages/img/brands/puma.jpg"></a></li>
+                                            <li><a href="shop-product-list.html"><img title="zara" alt="zara" src="~/Metronic-Shop-UI-master/theme/assets/pages/img/brands/zara.jpg"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            }
+
+
+
+
+            <!-- BEGIN TOP SEARCH -->
+            <li class="menu-search">
+                <span class="sep"></span>
+                <i class="fa fa-search search-btn"></i>
+                <div class="search-box">
+                    <form action="#">
+                        <div class="input-group">
+                            <input type="text" placeholder="Search" class="form-control">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </li>
+            <!-- END TOP SEARCH -->
+        </ul>
+    </div>

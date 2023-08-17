@@ -1,0 +1,23 @@
+﻿@model List<Seller>
+
+    <div class="col-md-9 col-sm-8">
+        <h2>Öne Çıkan Markalar</h2>
+        <div class="owl-carousel owl-carousel3">
+            @foreach (var seller in Model)
+            {
+                <div>
+                    <div class="product-item">
+                        <div class="pi-img-wrapper">
+                            <a asp-action="SellerPage" asp-controller="Seller" asp-route-sellerId="@seller.ID">
+                                <img src="~/ProductImage/SellerImage/@seller.ProfileImageUrl" class="img-responsive" alt="Berry Lace Dress">
+                            </a>
+                        </div>
+                        <h3 style="text-align:center;"><a asp-action="SellerPage" asp-controller="Seller" asp-route-sellerId="@seller.ID"><strong>@seller.CompanyName</strong></a></h3>
+                       
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>

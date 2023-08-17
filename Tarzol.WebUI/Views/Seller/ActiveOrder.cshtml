@@ -1,0 +1,78 @@
+﻿@model ActiveOrderModel
+@{
+    ViewData["Title"] = "ActiveOrder";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<div class="main">
+    <div class="container">
+
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40" style="margin-top:20px;">
+
+            @await Html.PartialAsync("LeftMenu")
+            <div class="col-md-9 col-sm-7">
+                <h1>SİPARİŞTEKİ ÜRÜNLER</h1>
+                <div class="goods-page">
+                    <div class="goods-data clearfix">
+                        <div class="table-wrapper-responsive">
+                            <form action="ActiveOrder" method="post">
+                                <table summary="Shopping cart">
+                                    <tr>
+                                        <th class="goods-page-image">RESİM</th>
+                                        <th class="goods-page-description">AÇIKLAMA</th>
+                                        <th class="goods-page-stock">ÜRÜN KODU</th>
+
+                                        <th class="goods-page-price">SİPARİŞ KODU</th>
+                                        <th class="goods-page-description" colspan="2">Teslimat Tarihi</th>
+                                    </tr>
+                                    @{ var deliveredDateCounter = 0;}
+                                    @foreach (var item in Model.OrderDetails)
+                                    {
+                                        @foreach (var product in Model.Products)
+                                        {
+                                            if (item.ProductID == product.ID)
+                                            {
+                                                <tr>
+                                                    <td class="goods-page-image">
+                                                        <a asp-action="ViewProduct" asp-controller="Product" asp-route-id="@product.ID"><img src="~/ProductImage/Big/@product.ImageOne" alt="Berry Lace Dress"></a>
+                                                    </td>
+                                                    <td class="goods-page-description">
+                                                        <h3><a href="javascript:;"><strong>@product.TradeMark</strong> </a></h3>
+                                                        <p><strong>@product.ProductName</strong><br /> Renk: @product.ProductColor.Color; Beden: @product.ProductSize.Size</p>
+
+                                                    </td>
+                                                    <td class="goods-page-stock">
+                                                        <span style="font-size:16px;" name="productID">@product.ProductCode</span>
+                                                    </td>
+
+                                                    <td class="goods-page-price">
+                                                        <span style="font-size:16px;" name="orderID">@item.Order.OrderNumber</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="datetime-local" name="@deliveredDateCounter" value="@DateTime.Now"/>
+                                                    </td>
+                                                    
+                                                    <td class="del-goods-col">
+                                                        @*<a asp-action="DelivredProduct" asp-route-productID="@product.ID" asp-route-orderID="@item.OrderID" asp-route-returnUrl="/Seller/ActiveOrder/" class="btn btn-primary" style="color:#fff !important;">TESLİM EDİLDİ &nbsp;<i class="glyphicon glyphicon-ok"></i></a>*@
+                                                        <button class="btn btn-primary" asp-route-deliveredDateCounter="@deliveredDateCounter"  asp-route-productID="@product.ID" asp-route-orderID="@item.OrderID" asp-route-returnUrl="/Seller/ActiveOrder/" style="color:#fff !important;">TESLİM EDİLDİ&nbsp;<i class="glyphicon glyphicon-ok"></i></button>
+                                                    </td>
+                                                    @{ deliveredDateCounter++;}
+                                                </tr>
+                                            }
+                                        }
+                                    }
+
+
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,124 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "ProductDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Ürün Detay Sayfası</h2>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="ibox product-detail">
+                <div class="ibox-content">
+
+                    <div class="row">
+                        <div class="col-md-5">
+
+
+                            <div class="product-images">
+
+                                <div>
+                                    <div style="width:400px;height:500px;">
+                                        <img src="~/ProductImage/Big/@Model.ImageOne" style="width:400px;height:500px;">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="width:400px;height:500px;">
+                                        <img src="~/ProductImage/Big/@Model.ImageTwo" style="width:400px;height:500px;">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="width:400px;height:500px;">
+                                        <img src="~/ProductImage/Big/@Model.ImageThree" style="width:400px;height:500px;">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="width:400px;height:500px;">
+                                        <img src="~/ProductImage/Big/@Model.ImageFour" style="width:400px;height:500px;">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-7">
+
+                            <h2 class="font-bold m-b-xs">
+                                @Model.TradeMark
+
+                            </h2>
+                            @if (ViewBag.notificationPage == true)
+                            {
+                                <div class="btn-group float-right">
+                                    <a asp-action="ComposeMail" asp-controller="Message" asp-route-sellerId="@Model.SellerID" class="btn btn-white btn-sm">Satıcıya Yaz</a>
+                                    <a asp-action="Index" asp-controller="Notification" class="btn btn-white btn-sm">Bildirimlere Dön</a>
+                                </div>
+                            }
+
+                            <small>@Model.ProductName</small>
+                            <hr>
+                            <div>
+
+                                <h1 class="product-main-price">@Model.DiscountedPrice.ToString("0.00") ₺ <span style="text-decoration:line-through;font-size:20px;">@Model.MarketPrice.ToString("0.00") ₺</span></h1>
+                            </div>
+                            <hr>
+                            <h4>Ürün Açıklaması</h4>
+
+                            <div class="small text-muted">
+                                @Model.Description
+                                <br />
+                                <br />
+                                @Model.ProductInformation
+                            </div>
+                            <dl class="row m-t-md small">
+                                <dt class="col-md-4 text-right">Beden :</dt>
+                                <dd class="col-md-8">@Model.ProductSize.Size</dd>
+                                <dt class="col-md-4 text-right">Renk :</dt>
+                                <dd class="col-md-8">@Model.ProductColor.Color</dd>
+                                <dt class="col-md-4 text-right">Kategori :</dt>
+                                <dd class="col-md-8">@Model.Category.CategoryName</dd>
+                                <dt class="col-md-4 text-right">Alt Kategori :</dt>
+                                <dd class="col-md-8">@Model.SubCategory.SubCategoryName</dd>
+                                <dt class="col-md-4 text-right">Ürün Kodu :</dt>
+                                <dd class="col-md-8">@Model.ProductCode</dd>
+                            </dl>
+
+
+
+                        </div>
+                    </div>
+                    @if (ViewBag.comment!=0)
+                    {
+                        <div class="row">
+                            @ViewBag.commentUser
+                            @ViewBag.commentContext
+                        </div>
+                    }
+                    else
+                    {
+                         <div class="row">
+                             <span>@ViewBag.commentUser olumsuz değerlendirme yaptı. </span>
+                             <span>Müşteri ürün için sadece olumsuz puanlama yaptı, yorumu bulunmamaktadır.</span>
+                         </div>
+                    }
+                </div>
+                <div class="ibox-footer">
+                    <span class="float-right">
+                        Oluşturulma Tarihi - <i class="fa fa-clock-o"></i> @Model.CreatedDate
+                    </span>
+                    Satıcı : @Model.Seller.CompanyName
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

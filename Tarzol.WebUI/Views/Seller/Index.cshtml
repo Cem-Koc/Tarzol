@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="main">
+    <div class="container">
+
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40" style="margin-top:20px;">
+
+            @await Html.PartialAsync("LeftMenu")
+
+            <div class="col-md-8" style="margin-left:40px;">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="card-body text-center">
+                            <p style="color:black;">
+                                Bugünkü Satışım<br />
+                                18.954+KDV
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5">
+                        <div class="card-body text-center">
+                            <p style="color:black;">
+                                Son 7 Günlük Satışım<br />
+                                18.954+KDV
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row" style="margin:40px;">
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="card-body text-center">
+                            <p style="color:black;">
+                                Son 30 Günlük Kazancım<br />
+                                18.954+KDV
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5">
+                        <div class="card-body text-center">
+                            <p style="color:black;">
+                                Toplam Kazancım<br />
+                                18.954+KDV
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+    <style>
+        .col-md-5 {
+            background-color:#fff;
+            margin:auto;
+            height:120px;
+            border-radius:9px !important;
+            box-shadow: 2px 2px 6px #000;            
+        }
+            .col-md-5:hover {
+                -ms-transform: scale(1.1); 
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+        .card-body {
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+        }
+    </style>

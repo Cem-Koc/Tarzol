@@ -1,0 +1,90 @@
+﻿@model ProductInQuestionModel
+@{
+    ViewData["Title"] = "SellerAnswer";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="main">
+    <div class="container">
+
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40" style="margin-top:20px;">
+
+            @await Html.PartialAsync("LeftMenu")
+            <div class="col-md-9">
+
+                <table class="table table-hover">
+                    <tr>
+                        <th>#</th>
+                        <th>Ürün Adı</th>
+                        <th>Marka</th>
+                        <th>Ürün Kodu</th>
+                        <th>Renk</th>
+                        <th>Beden</th>
+                        <th>Üst Kategori</th>
+                        <th>Alt Kategori</th>
+                        <th>Soru Adeti</th>
+                    </tr>
+
+                    @{ int productIdController = 0;}
+
+                    @foreach (var question in Model.Questions)
+                    {
+                        @foreach (var product in Model.Products)
+                        {
+
+
+                            if (product.ID == question.ProductID)
+                            {
+                                if (Model.Answers.Any(i => i.QuestionID == question.ID))
+                                {
+
+                                }
+                                else
+                                {
+
+                                    if (question.ProductID != productIdController)
+                                    {
+                                        <tr>
+                                            <td>@product.ID</td>
+                                            <td>@product.ProductName</td>
+                                            <td>@product.TradeMark</td>
+                                            <td>@product.ProductCode</td>
+                                            <td>@product.ProductColor.Color</td>
+                                            <td>@product.ProductSize.Size</td>
+                                            <td>@product.Category.CategoryName</td>
+                                            <td>@product.SubCategory.SubCategoryName</td>
+                                            <td style="text-align:center;">
+                                                @{
+                                                    var questionCount = Model.Questions.Where(i => i.ProductID == question.ProductID).Count();
+                                                    var answerCount=Model.Answers.Where(x => x.ProductID == question.ProductID).Count();
+                                                    var result = questionCount - answerCount;
+                                            }
+                                                <a asp-action="ProductQuestion" asp-route-productId="@product.ID" style="color:#e02222;" title="Cevaplamak için tıklayın.">@result</a>
+                                        </td>
+                                    </tr>
+
+
+                                            productIdController = question.ProductID;
+
+                                }
+                            }
+                        }
+                    }
+                    }
+
+                </table>
+
+
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

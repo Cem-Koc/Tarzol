@@ -1,0 +1,15 @@
+﻿@model DailyEarningsModel
+
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <span class="label label-primary float-right">Bugün</span>
+                <h5>Kazanç</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">@Model.TotalEarnings.ToString("0.00") ₺</h1>
+                <div class="stat-percent font-bold text-navy">@Model.TodayEarningsOrderCount</div>
+                <small>Toplam Sipariş</small>
+            </div>
+        </div>
+    </div>

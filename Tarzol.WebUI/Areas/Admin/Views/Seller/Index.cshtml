@@ -1,0 +1,44 @@
+﻿@model List<Seller>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Satıcılar</h1>
+
+<br />
+<table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Firma Adı</th>
+            <th>User ID</th>
+            <th>Vergi Numarası</th>
+            <th>İl</th>
+            <th>İlçe</th>
+            <th>Ürün Sayısı</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var seller in Model)
+        {
+            <tr>
+                <th>@seller.ID</th>
+                <td>@seller.CompanyName</td>
+                <td>@seller.UserID</td>
+                <td>@seller.TaxNumber</td>
+                <td>@seller.City.CityName</td>
+                <td>@seller.District.DistrictName</td>
+                <td>@seller.Product.Count</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="6">
+                <ul class="pagination float-right"></ul>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+

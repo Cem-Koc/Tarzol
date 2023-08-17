@@ -1,0 +1,172 @@
+﻿@model List<Message>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        @await Component.InvokeAsync("MailFolders")
+        <div class="col-lg-9 animated fadeInRight">
+            <div class="mail-box-header">
+
+                <form method="get" action="index.html" class="float-right mail-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-sm" name="search" placeholder="E-posta Ara">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                Ara
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <h2>
+                    Gelen Kutusu
+                </h2>
+                <div class="mail-tools tooltip-demo m-t-md">
+                    <div class="btn-group float-right">
+                        <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
+                        <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
+
+                    </div>
+                    <a class="btn btn-white btn-sm" asp-action="Refresh" data-toggle="tooltip"><i class="fa fa-refresh"></i> Yenile</a>
+                    <a class="btn btn-white btn-sm" id="read" data-toggle="tooltip" data-ajax="false"><i class="fa fa-eye"></i> Okundu</a>
+
+
+                    <a class="btn btn-white btn-sm" id="important" data-toggle="tooltip"><i class="fa fa-exclamation"></i> Önemli</a> 
+                    <a class="btn btn-white btn-sm" id="delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i> Sil</a>
+
+                </div>
+            </div>
+            <div class="mail-box">
+
+                <table class="table table-hover table-mail" id="tblSelection">
+                    <tbody>
+                        @foreach (var mail in Model)
+                        {
+                            @if (mail.Read == false)
+                            {
+                                <tr class="unread">
+                                    <td class="check-mail">
+                                        <input type="checkbox" id="@mail.ID" name="selection" value="@mail.ID" class="i-checks">
+                                        
+                                    </td>
+
+                                    <td class="mail-ontact"><a asp-action="MessageDetail" asp-controller="Message" asp-route-messageId="@mail.ID">@mail.CreatedBy</a></td>
+                                    <td class="mail-subject"><a asp-action="MessageDetail" asp-controller="Message" asp-route-messageId="@mail.ID">@mail.MessageTitle</a></td>
+                                    <td class=""></td>
+                                    <td class="text-right mail-date">
+                                        @if (mail.CreatedDate.Value.ToShortDateString() == DateTime.Now.ToShortDateString())
+                                        {
+                                            @mail.CreatedDate.Value.ToLongTimeString()
+                                        }
+                                        else
+                                        {
+                                            @mail.CreatedDate
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr class="read">
+                                    <td class="check-mail">
+                                        <input type="checkbox" value="@mail.ID" class="i-checks">
+                                    </td>
+                                    <td class="mail-ontact"><a asp-action="MessageDetail" asp-controller="Message" asp-route-messageId="@mail.ID">@mail.CreatedBy</a></td>
+                                    <td class="mail-subject"><a asp-action="MessageDetail" asp-controller="Message" asp-route-messageId="@mail.ID">@mail.MessageTitle</a></td>
+                                    <td class=""></td>
+                                    <td class="text-right mail-date">
+                                        @if (mail.CreatedDate.Value.ToShortDateString() == DateTime.Now.ToShortDateString())
+                                        {
+                                            @mail.CreatedDate.Value.ToLongTimeString()
+                                        }
+                                        else
+                                        {
+                                            @mail.CreatedDate
+                                        }
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+
+
+
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#important").click(function () {
+            var message = "";
+            $("input[type=checkbox]").each(function () {
+                if ($(this).is(":checked")) {
+                    message += $(this).attr('value') + ",";
+                }
+                
+            }); 
+            $.ajax({
+                type: "post",
+                url: "/Admin/Message/ImportantMail/",
+                data: message,
+                success: function (func) {
+                    let result = jQuery.parseJSON(func);
+                    alert("İşlem Başarılı Bir Şekilde Gerçekleşti");
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#delete").click(function () {
+            var message = "";
+            $("input[type=checkbox]").each(function () {
+                if ($(this).is(":checked")) {
+                    message += $(this).attr('value') + ",";
+                }
+
+            });
+            $.ajax({
+                type: "post",
+                url: "/Admin/Message/DeleteMail/",
+                data: message,
+                success: function (func) {
+                    let result = jQuery.parseJSON(func);
+                    alert("İşlem Başarılı Bir Şekilde Gerçekleşti");
+                }
+            });
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#read").click(function () {
+            var message = "";
+            $("input[type=checkbox]").each(function () {
+                if ($(this).is(":checked")) {
+                    message += $(this).attr('value') + ",";
+                }
+
+            });
+            $.ajax({
+                type: "post",
+                url: "/Admin/Message/ReadMail/",
+                data: message,
+                success: function (func) {
+                    let result = jQuery.parseJSON(func);
+                    alert("İşlem Başarılı Bir Şekilde Gerçekleşti");
+                }
+            });
+        });
+    });
+</script>

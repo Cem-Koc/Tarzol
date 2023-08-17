@@ -1,0 +1,77 @@
+﻿@model ProductInQuestionModel
+@{
+    ViewData["Title"] = "ProductQuestion";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="main">
+    <div class="container">
+
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40" style="margin-top:20px;">
+
+            @await Html.PartialAsync("LeftMenu")
+            <div class="col-md-9">
+
+                <table class="table table-hover">
+                    <tr>
+                        <th>#</th>
+                        <th>Tarih</th>
+                        <th>Kullanıcı</th>
+                        <th>Soru</th>
+                        <th></th>
+                        
+                    </tr>
+
+                   
+
+                    @foreach (var question in Model.Questions)
+                    {
+                      
+                            
+                                if (Model.Answers.Any(i => i.QuestionID == question.ID))
+                                {
+
+                                }
+                                else
+                                {
+
+                                   
+                                        <tr>
+                                            <td>@question.ID</td>
+                                            <td>@question.CreatedDate</td>
+                                            <td>@question.CreatedBy</td>
+                                            <td>@question.QuestionContent</td>
+                                            
+                                            <td style="text-align:center;">
+                                              
+                                                <a asp-action="ProductAnswer" asp-route-productId="@question.ProductID" asp-route-questionId="@question.ID"
+                                                   style="color:#e02222;"><span>Cevapla</span></a>
+                                            </td>
+                                        </tr>
+
+
+                                        
+
+                                    
+                                }
+                            
+                        }
+                    
+
+                </table>
+
+
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,60 @@
+﻿@model Tarzol.WebUI.Models.AllCategoryModel
+@{ var counter = 0;}
+<ul class="list-group margin-bottom-25 sidebar-menu">
+    @foreach (var item in Model.Categories)
+    {
+        if (counter == 0)
+        {
+            counter++;
+            <li class="list-group-item clearfix dropdown collapse">
+                <a href="javascript:void(0);">
+                    <i class="fa fa-chevron-right"></i>
+                    @item.CategoryName
+
+                </a>
+
+                <ul class="dropdown-menu" style="display:block;">
+                    @foreach (var item1 in Model.CategoryAndSubCategories)
+                    {
+                        @if (item1.CategoryID == item.ID)
+                        {
+                            <li class="list-group-item dropdown clearfix">
+                                <a asp-action="GetProductByCategoryList" asp-controller="Category" asp-route-ID="@item.ID" asp-route-SubCategoryID="@item1.SubCategoryID"
+                                   class="collapsed"><i class="fa fa-angle-right"></i>  @item1.SubCategory.SubCategoryName </a>
+
+                            </li>
+                        }
+                    }
+
+                </ul>
+            </li>
+            
+        }
+        else
+        {
+            <li class="list-group-item clearfix dropdown">
+                <a href="javascript:void(0);">
+                    <i class="fa fa-chevron-right"></i>
+                    @item.CategoryName
+
+                </a>
+
+                <ul class="dropdown-menu" style="display:none;">
+                    @foreach (var item1 in Model.CategoryAndSubCategories)
+                    {
+                        @if (item1.CategoryID == item.ID)
+                        {
+                            <li class="list-group-item dropdown clearfix">
+                                <a asp-action="GetProductByCategoryList" asp-controller="Category" asp-route-ID="@item.ID" asp-route-SubCategoryID="@item1.SubCategoryID"
+                                   class="collapsed"><i class="fa fa-angle-right"></i>  @item1.SubCategory.SubCategoryName </a>
+
+                            </li>
+                        }
+                    }
+
+                </ul>
+            </li>
+        }
+
+    }
+</ul>

@@ -1,0 +1,126 @@
+﻿@model List<Product>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<div class="main">
+    <div class="container">
+
+        <div class="row margin-bottom-40">
+            <!-- BEGIN CONTENT -->
+            @*<div class="sidebar col-md-3 col-sm-5">
+                @await Component.InvokeAsync("CategoryList")
+            </div>*@
+
+            <div class="col-md-12">
+                <h1>ALIŞVERİŞ SEPETİ</h1>
+                <div class="goods-page">
+
+                    @if (ViewBag.cart == null)
+                    {
+
+                        <strong>Sepetinize henüz ürün eklemediniz.</strong>
+
+                    }
+                    else
+                    {
+                        <div class="goods-data clearfix">
+                            <div class="table-wrapper-responsive">
+
+                                <table summary="Shopping cart">
+                                    <tr>
+                                        <th class="goods-page-image">RESİM</th>
+                                        <th class="goods-page-description">AÇIKLAMA</th>
+                                        <th class="goods-page-ref-no">ÜRÜN KODU</th>
+                                        <th class="goods-page-quantity">ADET</th>
+                                        <th class="goods-page-price">ADET FİYATI</th>
+                                        <th class="goods-page-total" colspan="2">FİYAT</th>
+                                    </tr>
+                                    @{ decimal total = 0;}
+                                    @foreach (var product in Model)
+
+                                    {
+
+
+
+
+                                        @foreach (var item in ViewBag.cart)
+                                        {
+
+
+
+                                            if (product.ID == item.ProductID)
+                                            {
+                                                <tr>
+                                                    <td class="goods-page-image">
+                                                        <a asp-action="ViewProduct" asp-controller="Product" asp-route-id="@product.ID"><img src="~/ProductImage/Big/@product.ImageOne" alt="Berry Lace Dress"></a>
+                                                    </td>
+                                                    <td class="goods-page-description">
+                                                        <strong><a href="javascript:;">@product.TradeMark</a></strong>
+                                                        <p><strong>@product.ProductName</strong> <br /> Renk: @product.ProductColor.Color; Beden: @product.ProductSize.Size</p>
+
+                                                    </td>
+                                                    <td @*class="goods-page-ref-no"*@>
+                                                        <strong style="font-size:16px;">@product.ProductCode</strong>
+                                                    </td>
+                                                    <td @*class="goods-page-quantity"*@ style="font-size:16px;">
+                                                        <div>
+
+                                                            <a asp-route-id="@product.ID" asp-action="QuantityDecrease"><i class="glyphicon glyphicon-triangle-bottom"></i></a>
+                                                            @*<input value="@item.Quantity" type="text" class="btnDisabled" style="width:20px;border:none;" />*@
+                                                            <strong>@item.Quantity</strong>
+                                                            <a asp-route-id="@product.ID" asp-action="QuantityIncrease"><i class="glyphicon glyphicon-triangle-top"></i></a>
+                                                        </div>
+                                                        @*<div class="product-quantity">
+                                                <input id="product-quantity" type="text" value="@item.Quantity" readonly class="form-control input-sm">
+                                            </div>*@
+                                                    </td>
+                                                    <td class="goods-page-price">
+                                                        <strong>@product.DiscountedPrice.ToString("0.00")<span>TL</span></strong>
+                                                    </td>
+                                                    <td class="goods-page-total">
+                                                        <strong>@((product.DiscountedPrice * item.Quantity).ToString("0.00"))<span>TL</span></strong>
+                                                    </td>
+                                                    <td class="del-goods-col">
+                                                        <a class="del-goods" asp-action="Remove" asp-route-id="@product.ID">&nbsp;</a>
+                                                    </td>
+                                                </tr>
+                                                total = (item.Quantity * product.DiscountedPrice) + total;
+                                            }
+
+                                        }}
+
+
+
+
+                                </table>
+                            </div>
+
+                            <div class="shopping-total">
+                                <ul>
+
+                                    <li class="shopping-total-price">
+                                        <em>Toplam Ücret</em>
+                                        <strong class="price">@total.ToString("0.00")<span>TL</span></strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a asp-action="Index" asp-controller="Home" class="btn btn-default">Alışverişe Devam Et <i class="fa fa-shopping-cart"></i></a>
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn btn-primary" asp-action="AddCustomer" asp-controller="Customer">Sepeti Onayla<i class="fa fa-check"></i></a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-primary" asp-action="Index" asp-controller="Login" asp-route-returnUrl="/Home/Index/">Sepeti Onayla<i class="fa fa-check"></i></a>
+
+                        }
+
+                    }
+                </div>
+            </div>
+            <!-- END CONTENT -->
+        </div>
+
+        </div></div>

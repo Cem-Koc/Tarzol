@@ -1,0 +1,92 @@
+﻿@model List<Product>
+
+
+<div class="row margin-bottom-40">
+    <!-- BEGIN SALE PRODUCT -->
+    <div class="col-md-12 sale-product">
+        <h2>YENİ ÜRÜNLER</h2>
+        <div class="owl-carousel owl-carousel5">
+
+            @foreach (var item in Model)
+            {
+                <div>
+                    <div class="product-item" style="height:370px;">
+                        <div class="pi-img-wrapper">
+                            <img src="~/ProductImage/Big/@item.ImageOne" class="img-responsive" alt="Berry Lace Dress">
+                            <div>
+                                <a href="~/ProductImage/Big/@item.ImageOne" class="btn btn-default fancybox-button">YAKINLAŞTIR</a><br /><br />
+                                <a href="#product-pop-up-@item.ID" class="btn btn-default fancybox-fast-view">GÖRÜNTÜLE</a>
+                            </div>
+                        </div>
+                        <h3><a asp-action="ViewProduct" asp-controller="Product" asp-route-id="@item.ID"><strong>@item.TradeMark.ToUpper()</strong>&nbsp;@item.ProductName.ToUpper()</a></h3>
+                        <div style="bottom:10px; position:fixed;">
+                            <div class="pi-price">@item.DiscountedPrice.ToString("0.00")TL</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a asp-controller="Cart" asp-action="Buy" asp-route-Id="@item.ID" class="btn btn-default add2cart">SEPETE EKLE</a>
+                        </div>
+                        <div @*class="sticker sticker-sale"*@></div>
+                    </div>
+                </div>
+                ////////////////////
+
+            }
+
+            @foreach (var item in Model)
+            {
+                <div id="product-pop-up-@item.ID" style="display: none; width: 700px;">
+                    <div class="product-page product-pop-up">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-3">
+                                <div class="product-main-image">
+                                    <img src="~/ProductImage/Big/@item.ImageOne" alt="Cool green dress with red bell" class="img-responsive">
+                                </div>
+                                <div class="product-other-images">
+                                    <a href="javascript:;" class="active"><img alt="Berry Lace Dress" src="~/ProductImage/Big/@item.ImageTwo"></a>
+                                    <a href="javascript:;"><img alt="Berry Lace Dress" src="~/ProductImage/Big/@item.ImageThree"></a>
+                                    <a href="javascript:;"><img alt="Berry Lace Dress" src="~/ProductImage/Big/@item.ImageFour"></a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-9">
+                                <h1>@item.ProductName.ToUpper()</h1>
+                                <div class="price-availability-block clearfix">
+                                    <div class="price">
+                                        <strong>@item.DiscountedPrice.ToString("0.00")<span>TL</span></strong>
+                                        <em><span>@item.MarketPrice.ToString("0.00")</span>TL</em>
+                                    </div>
+                                    <div class="availability">
+                                        Stok Durumu:  @if (item.UnitsInStock > 30)
+                                        {
+                                            <strong>Mevcut</strong>
+                                        }
+                                        else if (item.UnitsInStock < 10)
+                                        {
+                                            <strong style="color:red">Tükeniyor</strong>
+                                        }
+                                        else
+                                        {
+                                            <strong style="color:orange">Azalıyor</strong>
+                                        }
+                                    </div>
+                                </div><br />
+                                <div class="description">
+                                    <p>
+                                        @item.Description
+                                    </p>
+                                </div>
+                                <br /><br />
+                                <div class="product-page-cart">
+                                   
+                                    <a asp-controller="Cart" asp-action="Buy" asp-route-Id="@item.ID" class="btn btn-primary">Sepete Ekle</a>
+                                    <a asp-action="ViewProduct" asp-controller="Product" asp-route-id="@item.ID" class="btn btn-default">ÜRÜN DETAYLARI</a>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+    <!-- END SALE PRODUCT -->
+</div>

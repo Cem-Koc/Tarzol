@@ -1,0 +1,76 @@
+﻿@model List<OrderDetail> 
+@{
+    ViewData["Title"] = "DeliveredOrder";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="main">
+    <div class="container">
+
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40" style="margin-top:20px;">
+
+            @await Html.PartialAsync("LeftMenu")
+            <div class="col-md-9 col-sm-7">
+                <h1>SİPARİŞTEKİ ÜRÜNLER</h1>
+                <div class="goods-page">
+                    <div class="goods-data clearfix">
+                        <div class="table-wrapper-responsive">
+                            
+                                <table summary="Shopping cart">
+                                    <tr>
+                                        <th class="goods-page-image">RESİM</th>
+                                        <th class="goods-page-description">AÇIKLAMA</th>
+
+
+                                        <th class="goods-page-price">SİPARİŞ NO</th>
+                                        <th class="goods-page-description">SİPARİŞ</th>
+                                        <th class="goods-page-description">TESLİMAT</th>
+                                        <th class="goods-page-description" colspan="2">ADET & ADET FİYATI</th>
+                                        
+                                    </tr>
+                                    
+                                    @foreach (var item in Model)
+                                    {
+                                       
+                                <tr>
+                                    <td class="goods-page-image">
+                                        <a asp-action="ViewProduct" asp-controller="Product" asp-route-id="@item.ProductID"><img src="~/ProductImage/Big/@item.Product.ImageOne" alt="Berry Lace Dress"></a>
+                                    </td>
+                                    <td class="goods-page-description">
+                                        <h3><a href="javascript:;"><strong>@item.Product.TradeMark</strong> </a></h3>
+                                        <p><strong>@item.Product.ProductName</strong><br /> Renk: @item.Product.ProductColor.Color; Beden: @item.Product.ProductSize.Size</p>
+                                        <em>Ürün Konu: @item.Product.ProductCode</em>
+                                    </td>
+                                    <td class="goods-page-price">
+                                        <span style="font-size:16px;">@item.Order.OrderNumber</span>
+                                    </td>
+
+                                    <td class="goods-page-price">
+                                        <span style="font-size:16px;">@item.Order.OrderDate</span>
+                                    </td>
+                                    <td class="goods-page-price">
+                                        <span style="font-size:16px;">@item.ModifiedDate</span>
+                                    </td>
+                                    <td class="goods-page-price">
+                                        <span style="font-size:16px;">@item.Quantity</span>
+                                    </td>
+                                    <td class="goods-page-price">
+                                        <span style="font-size:16px;">@item.UnitPrice.ToString("0.00")<span>TL</span></span>
+                                    </td>
+                                </tr>
+                                            
+                                        
+                                    }
+
+
+                                </table>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

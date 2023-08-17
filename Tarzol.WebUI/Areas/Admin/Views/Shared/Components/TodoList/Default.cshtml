@@ -1,0 +1,74 @@
+﻿@model List<Todo>
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Yapılacaklar Listesi</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <a class="btn btn-white btn-sm" id="important" data-toggle="tooltip"><i class="fa fa-save"></i> Değişiklikleri Kaydet</a>
+                <a class="btn btn-white btn-sm" asp-action="DashboardIndex" data-toggle="tooltip"><i class="fa fa-refresh"></i> Yenile</a>
+                <ul class="todo-list m-t small-list">
+                    @foreach (var todo in Model)
+                    {
+                        if (todo.isDone == true)
+                        {
+                            <li>
+                                @*<a href="#" class="check-link" name="@todo.ID" itemprop="@todo.ID"><i class="fa fa-check-square"></i> </a>*@
+                                <input type="checkbox" value="@todo.ID" class="i-checks">
+                                <span class="m-l-xs todo-completed">@todo.TodoContext</span>
+
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                @*<a href="#" class="check-link" name="@todo.ID" itemprop="@todo.ID"><i class="fa fa-square-o"></i> </a>*@
+                                <input type="checkbox" value="@todo.ID" class="i-checks">
+                                <span class="m-l-xs">@todo.TodoContext</span>
+
+                            </li>
+                        }
+                    }
+
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#important").click(function () {
+            var message = "";
+            $("input[type=checkbox]").each(function () {
+                if ($(this).is(":checked")) {
+                    message += $(this).attr('value') + ",";
+                }
+                
+            }); 
+            $.ajax({
+                type: "post",
+                url: "/Admin/Dashboard/TodoChange/",
+                data: message,
+                success: function (func) {
+                    let result = jQuery.parseJSON(func);
+                    alert("İşlem Başarılı Bir Şekilde Gerçekleşti");
+                }
+            });
+        });
+    });
+</script>

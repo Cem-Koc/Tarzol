@@ -1,0 +1,51 @@
+﻿@model List<Message>
+<li class="dropdown">
+    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+        <i class="fa fa-envelope"></i>  <span class="label label-warning">@Model.Count</span>
+    </a>
+    <ul class="dropdown-menu dropdown-messages">
+        @foreach (var mail in Model)
+        {
+            <li>
+                <div class="dropdown-messages-box">
+                    @*<a class="dropdown-item float-left" href="profile.html">
+                        <img alt="image" class="rounded-circle" src="img/a7.jpg">
+                    </a>*@
+                    <div class="media-body">
+                        @{ TimeSpan timeSpan = DateTime.Now - Convert.ToDateTime(mail.CreatedDate);}
+
+                        @if (timeSpan.Days > 0)
+                        {
+                            <small class="float-right">
+                                @timeSpan.Days.ToString() gün önce
+                            </small>
+                        }
+                        else
+                        {
+                    <small class="float-right">
+                        @timeSpan.Hours.ToString() saat önce
+                    </small>
+
+                        }
+
+
+
+
+
+
+                        <strong>@mail.SenderMail</strong> mail gönderdi.<br>
+                        <small class="text-muted">@mail.CreatedDate</small>
+</div>
+                </div>
+            </li>
+            <li class="dropdown-divider"></li>
+        }
+        <li>
+            <div class="text-center link-block">
+                <a asp-action="Index" asp-controller="Message" class="dropdown-item">
+                    <i class="fa fa-envelope"></i> <strong>Tüm Mailleri Oku</strong>
+                </a>
+            </div>
+        </li>
+    </ul>
+</li>

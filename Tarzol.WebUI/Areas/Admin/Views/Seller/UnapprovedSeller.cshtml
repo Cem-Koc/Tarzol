@@ -1,0 +1,43 @@
+﻿@model List<Seller>
+@{
+    ViewData["Title"] = "UnapprovedSeller";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Onay Bekleyen Satıcılar</h1>
+
+<br />
+<table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Firma Adı</th>
+            <th>User ID</th>
+            <th>Vergi Numarası</th>
+            <th>İl</th>
+            <th colspan="2">İlçe</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var seller in Model)
+        {
+            <tr>
+                <th>@seller.ID</th>
+                <td>@seller.CompanyName</td>
+                <td>@seller.UserID</td>
+                <td>@seller.TaxNumber</td>
+                <td>@seller.City.CityName</td>
+                <td>@seller.District.DistrictName</td>
+                <td><a asp-action="Approval" asp-route-sellerId="@seller.ID" class="btn btn-outline-danger">Onayla</a></td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="6">
+                <ul class="pagination float-right"></ul>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+

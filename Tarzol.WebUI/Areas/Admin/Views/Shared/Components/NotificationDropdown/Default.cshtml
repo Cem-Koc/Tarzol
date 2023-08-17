@@ -1,0 +1,98 @@
+﻿@model NotificationDropdownModel
+
+    <li class="dropdown">
+        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+            <i class="fa fa-bell"></i>  <span class="label label-primary">@Model.NotificationAllCount</span>
+        </a>
+        <ul class="dropdown-menu dropdown-alerts">
+
+            @if (Model.NewSellerCount != "0")
+            {
+                TimeSpan timeSpan = DateTime.Now - Convert.ToDateTime(Model.NewSellerLastDate);
+                <li>
+                    <a href="mailbox.html" class="dropdown-item">
+                        <div>
+                            <i class="fa fa-vcard fa-fw"></i> @Model.NewSellerCount Yeni Satıcı Kayıt Oldu
+                            @if (timeSpan.Days > 0)
+                            {
+                                <span class="float-right text-muted small">@timeSpan.Days.ToString() gün önce</span>
+                               
+                            }
+                            else
+                            {
+                                <small class="float-right text-muted small">
+                                    @timeSpan.Hours.ToString() saat önce
+                                </small>
+
+                            }
+                        </div>
+                    </a>
+                </li>
+                <li class="dropdown-divider"></li>
+
+                 
+
+               
+            }
+
+            @if (Model.NewProductCount != "0")
+            {
+                TimeSpan timeSpan2 = DateTime.Now - Convert.ToDateTime(Model.NewProductLastDate);
+                <li>
+                    <a href="profile.html" class="dropdown-item">
+                        <div>
+                            <i class="fa fa-tag fa-fw"></i> @Model.NewProductCount Yeni Ürün Eklendi
+                            @if (timeSpan2.Days > 0)
+                            {
+                                <span class="float-right text-muted small">@timeSpan2.Days.ToString() gün önce</span>
+                               
+                            }
+                            else
+                            {
+                                <small class="float-right text-muted small">
+                                    @timeSpan2.Hours.ToString() saat önce
+                                </small>
+
+                            }
+                        </div>
+                    </a>
+                </li>
+                <li class="dropdown-divider"></li>
+            }
+
+            @if (Model.NegativeNoticeCount != "0")
+            {
+                TimeSpan timeSpan3 = DateTime.Now - Convert.ToDateTime(Model.NegativeNoticeLastDate);
+                <li>
+                    <a href="grid_options.html" class="dropdown-item">
+                        <div>
+                            <i class="fa fa-thumbs-down fa-fw"></i> @Model.NegativeNoticeCount Yeni Olumsuz Bildirim
+                            @if (timeSpan3.Days > 0)
+                            {
+                                <span class="float-right text-muted small">@timeSpan3.Days.ToString() gün önce</span>
+
+                            }
+                            else
+                            {
+                                <small class="float-right text-muted small">
+                                    @timeSpan3.Hours.ToString() saat önce
+                                </small>
+
+                            }
+                        </div>
+                    </a>
+                </li>
+                <li class="dropdown-divider"></li>
+            }
+
+
+            <li>
+                <div class="text-center link-block">
+                    <a asp-action="Index" asp-controller="Notification" class="dropdown-item">
+                        <strong>Tüm Bildirimler</strong>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </li>

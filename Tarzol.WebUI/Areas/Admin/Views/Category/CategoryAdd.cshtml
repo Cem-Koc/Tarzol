@@ -1,0 +1,34 @@
+﻿
+@model Category
+@{
+    ViewData["Title"] = "CategoryAdd";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Ana Kategori Ekle</h1>
+
+<br />
+<form asp-action="CategoryAdd" method="post" enctype="multipart/form-data">
+
+
+    <div class="form-group">
+        <label>Kategori Adı</label><br />
+        <input type="text" class="form-control" asp-for="CategoryName"  />
+    </div>
+    <div class="form-group">
+        <label>Kategori Açıklaması</label><br />
+        <textarea rows="7" class="form-control" asp-for="Description"></textarea>
+    </div><div class="form-group">
+        <label>Resim</label><br />
+        <input type="file" name="ImageUrl" asp-for="ImageUrl"/><br />
+    </div>
+          <div class="form-group">
+              <label>Statü</label><br />
+              <select asp-items="Html.GetEnumSelectList<Tarzol.Core.Enums.Status>()" asp-for="Status" class="form-control">
+                  <option value="">Statü Seçiniz</option>
+              </select>
+          </div>
+    <div class="form-group">
+        <button class="btn btn-success" style="float:right;width:180px;">Oluştur</button>
+    </div>
+</form>

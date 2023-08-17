@@ -1,0 +1,42 @@
+﻿@model List<SubCategory>
+@{
+    ViewData["Title"] = "SubCategoryIndex";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Alt Kategori Listesi</h1>
+
+<br />
+<table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Alt Kategori Adı</th>
+            <th data-sort-ignore="true">Aktif & Pasif</th>
+            <th data-sort-ignore="true">Güncelle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subCategory in Model)
+        {
+            <tr>
+                <th>@subCategory.ID</th>
+                <td>@subCategory.SubCategoryName</td>
+                <td>
+                    @if (subCategory.Status == Tarzol.Core.Enums.Status.Active)
+                    {
+                        <a asp-action="SubCategoryActiveAndPassive" asp-route-subCategoryId="@subCategory.ID" class="btn btn-outline-danger">Pasif Yap</a>
+                    }
+                    else
+                    {
+                        <a asp-action="SubCategoryActiveAndPassive" asp-route-subCategoryId="@subCategory.ID" class="btn btn-outline-warning">Aktif Yap</a>
+
+                    }
+                </td>
+                <td><a asp-action="SubCategoryUpdate" asp-route-subCategoryId="@subCategory.ID" class="btn btn-outline-info">Güncelle</a></td>
+            </tr>
+        }
+    </tbody>
+    
+</table>
+<a asp-action="SubCategoryAdd" class="btn btn-success">Alt Kategori Ekle</a>

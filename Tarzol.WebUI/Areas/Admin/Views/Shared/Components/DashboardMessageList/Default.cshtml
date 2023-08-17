@@ -1,0 +1,39 @@
+﻿@model List<Message>
+
+    <div class="col-lg-4">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Mesajlar</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content ibox-heading">
+                <h3><i class="fa fa-envelope-o"></i> Yeni Mesajlar</h3>
+                <small><i class="fa fa-tim"></i> @ViewBag.unreadMessageListCount okunmamış mesajınız var.</small>
+            </div>
+            <div class="ibox-content">
+                <div class="feed-activity-list">
+
+                    @foreach (var message in Model)
+                    {
+                        <div class="feed-element">
+                            <div>
+                                <small class="float-right text-navy">1m ago</small>
+                                <strong>@message.CreatedBy</strong>
+                                <div>@message.MessageTitle</div>
+                                <small class="text-muted">@message.CreatedDate.Value.ToLongDateString()</small>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>

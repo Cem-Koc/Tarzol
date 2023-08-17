@@ -1,0 +1,104 @@
+﻿@model MailDetailModel
+@{
+    ViewData["Title"] = "ReplyMail";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        @await Component.InvokeAsync("MailFolders")
+        <div class="col-lg-9 animated fadeInRight">
+            <div class="mail-box-header">
+                <div class="float-right tooltip-demo">
+                    <a asp-action="Index" class="btn btn-danger btn-sm" data-toggle="tooltip"><i class="fa fa-times"></i> İptal</a>
+                </div>
+                <h2>
+                    Cevap
+                </h2>
+            </div>
+            <div class="mail-box">
+
+                <form method="post" asp-action="ReplyMail" asp-controller="Message">
+                    <div class="mail-body">
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Kime:</label>
+
+                            <div class="col-sm-10">
+                                <input class="form-control" asp-for="Message.ReceiverMail" value="@ViewBag.Receiver"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Konu:</label>
+
+                            <div class="col-sm-10"><input type="text" class="form-control" value="@ViewBag.MessageTitle" asp-for="Message.MessageTitle"></div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="mail-text h-200">
+
+
+                        <textarea style="height:300px;" asp-for="Message.MessageContent" class="form-control"></textarea>
+
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="mail-body text-right tooltip-demo">
+                        @*<a asp-action="ComposeMail" asp-controller="Message" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Send"><i class="fa fa-reply"></i> Send</a>*@
+                        <button class="btn btn-white btn-sm">Gönder</button>
+                        <a asp-action="Index" class="btn btn-white btn-sm" data-toggle="tooltip"><i class="fa fa-times"></i> İptal</a>
+                    </div>
+                    <div class="clearfix"></div>
+
+
+                </form>
+            </div>
+            <div class="mail-box-header">
+               
+
+
+                @foreach (var mail in Model.Messages)
+                {
+
+                    
+                        <div class="mail-box-header">
+                            <h2>
+                                @mail.CreatedBy
+                            </h2>
+                            <div class="mail-tools tooltip-demo m-t-md">
+                                <h3>
+                                    <span class="font-normal">Konu: </span>@mail.MessageTitle
+                                </h3>
+                                <h5>
+                                    <span class="float-right font-normal">@mail.CreatedDate</span>
+                                    <span class="font-normal">Kimden: </span>@mail.SenderMail
+                                </h5>
+                                <h5>
+                                    <span class="font-normal">Kime: </span>@mail.ReceiverMail
+                                </h5>
+
+                            </div>
+                        </div>
+                        <div class="mail-box">
+
+
+                            <div class="mail-body">
+                                @mail.MessageContent
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+                        <hr />
+                   
+
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+﻿@model AnswerOfTheQuestionModel
+@{
+    ViewData["Title"] = "ProductAnswer";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="main">
+    <div class="container">
+
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40" style="margin-top:20px;">
+
+            @await Html.PartialAsync("LeftMenu")
+            <div class="col-md-9">
+
+                <form method="post" asp-action="ProductAnswer" asp-controller="Seller" asp-route-questionId="@Model.Question.ID" asp-route-productId="@Model.Question.ProductID">
+                    <div class="form-group">
+                        <label  title="Soru Id:">@Model.Question.ID</label><br />
+                        
+                    </div>
+                    <div class="form-group">
+                        <label>@Model.Question.ProductID</label><br />
+                       
+                    </div>
+                    <div class="form-group">
+                        <label>@Model.Question.CreatedBy</label><br />
+                        
+                    </div>
+                    <div class="form-group">
+                        <label>@Model.Question.CreatedDate</label><br />
+                    </div>
+                    <div class="form-group">
+                        <label>@Model.Question.QuestionContent</label><br />
+                    </div>
+                    <div class="form-group">
+                        <label>Cevabınızı Yazınız...</label>
+                        <textarea asp-for="@Model.Answer.AnswerContent"></textarea><br />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn form-control btn-primary rounded submit px-3" style="color:#e6400c;">Cevapla</button>
+                        </div>
+                </form>
+
+
+                
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+

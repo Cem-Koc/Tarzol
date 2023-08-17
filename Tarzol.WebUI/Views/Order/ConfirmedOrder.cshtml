@@ -1,0 +1,77 @@
+﻿@model List<Product>
+@{
+    ViewData["Title"] = "ConfirmedOrder";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="main">
+    <div class="container">
+
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+
+            <h1>SİPARİŞ ONAYI</h1>
+
+            <div id="confirm-content" class="checkout-page" style="background-color:#fff !important;">
+                <div class="panel-body row">
+                    <form asp-action="ConfirmedOrder" asp-controller="Order" method="post">
+                        <div class="col-md-12 clearfix">
+                            <div class="table-wrapper-responsive">
+                                <table>
+                                    <tr>
+                                        <th class="checkout-image">RESİM</th>
+                                        <th class="checkout-description">AÇIKLAMA</th>
+                                        <th class="checkout-model">ÜRÜN KODU</th>
+                                        <th class="checkout-quantity">ADET</th>
+                                        <th class="checkout-price">FİYAT</th>
+                                        <th class="checkout-total">TOPLAM</th>
+                                    </tr>
+                                    @{ decimal total = 0;}
+                                    @foreach (var item in Model)
+                                    {
+                                        @foreach (var cartItem in ViewBag.cart)
+                                        {
+                                            if (item.ID == cartItem.ProductID)
+                                            {
+                                                <tr>
+                                                    <td class="checkout-image">
+                                                        <a href="javascript:;"><img src="~/ProductImage/Big/@item.ImageOne" alt="Berry Lace Dress"></a>
+                                                    </td>
+                                                    <td class="checkout-description">
+                                                        <h3><a href="javascript:;">@item.TradeMark</a></h3>
+                                                        <p><strong>@item.ProductName</strong><br /> Renk: @item.ProductColor.Color; Beden: @item.ProductSize.Size</p>
+
+                                                    </td>
+                                                    <td class="checkout-model">@item.ProductCode</td>
+                                                    <td class="checkout-quantity">@cartItem.Quantity</td>
+                                                    <td class="checkout-price"><strong>@item.DiscountedPrice.ToString("0.00")<span>TL</span></strong></td>
+
+                                                    <td class="checkout-total"><strong>@((item.DiscountedPrice * cartItem.Quantity).ToString("0.00"))<span>TL</span></strong></td>
+                                                </tr>
+                                                total = (cartItem.Quantity * item.DiscountedPrice) + total;
+                                            }
+                                        }
+                                    }
+                                </table>
+                            </div>
+                            <div class="checkout-total-block">
+                                <ul>
+                                    <li class="checkout-total-price">
+                                        <em>GENEL TOPLAM</em>
+                                        <strong class="price">@total.ToString("0.00")<span>TL</span></strong>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                            <button class="btn btn-primary pull-right" type="submit" id="button-confirm">SİPARİŞİ TAMAMLA</button>
+                            <a asp-action="Index" asp-controller="Home" class="btn btn-default pull-right margin-right-20">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

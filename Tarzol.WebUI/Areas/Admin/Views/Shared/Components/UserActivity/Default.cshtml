@@ -1,0 +1,15 @@
+﻿@model UserActivityModel
+
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <span class="label label-primary float-right">Bugün</span>
+                <h5>Kullanıcı Etkinliği</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">@Model.ActivityCount</h1>
+                <div class="stat-percent font-bold text-danger">@Model.UserCount</div>
+                <small>Kullanıcı Sayısı</small>
+            </div>
+        </div>
+    </div>

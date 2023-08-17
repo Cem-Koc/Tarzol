@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Comment>
+<div class="tab-pane fade in active" id="Reviews">
+    
+    @if (Model.Count() == 0)
+    {
+        <p>ÜRÜNE AİT HENÜZ YORUM BULUNMAMAKTADIR.</p>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+           
+            <div class="review-item clearfix">
+                <div class="review-item-submitted">
+                    <strong>@item.AppUser.FirstName&nbsp;@item.AppUser.LastName</strong>
+                    <em>@item.CreatedDate</em>
+                    @foreach (var productRating in ViewBag.ProductRatings)
+                    {
+                        if (productRating.ProductID == item.ProductID && productRating.OrderID==item.OrderID)
+                        {
+                            <div class="rateit" data-rateit-value="@productRating.ProductRatingPoint" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                        }
+                    }
+
+                </div>
+                <div class="review-item-content">
+                    <p>@item.CommentContext</p>
+                </div>
+            </div>
+        }
+    }
+
+
+
+</div>

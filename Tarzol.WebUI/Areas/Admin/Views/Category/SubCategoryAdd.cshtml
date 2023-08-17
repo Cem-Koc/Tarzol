@@ -1,0 +1,27 @@
+﻿@model SubCategory
+@{
+    ViewData["Title"] = "SubCategoryAdd";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Alt Kategori Ekle</h1>
+
+<br />
+<form asp-action="SubCategoryAdd" method="post">
+
+
+    <div class="form-group">
+        <label>Alt Kategori Adı</label><br />
+        <input type="text" class="form-control" asp-for="SubCategoryName" required/>
+    </div>
+    
+    <div class="form-group">
+        <label>Statü</label><br />
+        <select asp-items="Html.GetEnumSelectList<Tarzol.Core.Enums.Status>()" asp-for="Status" class="form-control" required>
+            <option value="">Statü Seçiniz</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-success" style="float:right;width:180px;">Oluştur</button>
+    </div>
+</form>

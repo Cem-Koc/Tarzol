@@ -1,0 +1,63 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "ProductAdd";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<form asp-action="ProductAddTwoPage" asp-controller="Product" method="get" style="margin:50px;">
+    <label>Ürün Adı</label>
+    <input type="text" asp-for="ProductName" class="form-control" /><br />
+    <label>Marka</label>
+    <input type="text" asp-for="TradeMark" class="form-control" /><br />
+    <label>Ürün Kodu</label>
+    <input type="text" asp-for="ProductCode" class="form-control" /><br />
+    <label>Ürün Piyasa Fiyatı</label>
+    <input type="text" asp-for="MarketPrice" class="form-control" /><br />
+    <label>Tarzol'a Özel Fiyat</label>
+    <input type="text" asp-for="DiscountedPrice" class="form-control" /><br />
+    <label>Stok Adeti</label>
+    <input type="text" asp-for="UnitsInStock" class="form-control" /><br />
+
+    <select  asp-items="ViewBag.Cat" asp-for="CategoryID" class="form-control">
+        <option value="-1">Kategori Seçiniz</option>
+    </select><br />
+    @*<select  asp-items="ViewBag.SubCat" asp-for="Category.CategoryAndSubCategories" class="form-control">
+        <option value="-1">Alt Kategori Seçiniz</option>
+    </select><br />*@
+
+    @*<select id="PropertyList" asp-items="@ViewBag.Prop" asp-for="ProductProperties" class="form-control">
+            <option>Özellik Seçiniz</option>
+        </select><br />*@
+
+    @*<select id="SubPropertyList"  class="form-control">
+            <option value="-1">Alt Özellik</option>
+        </select>
+        <br /><br />*@
+
+
+
+    <button type="submit" class="btn btn-primary">Devam Et</button>
+</form>
+
+@section ScriptProduct{ 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#CategoryList").change(function () {
+                $("#SubCategoryList").empty();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("LoadSubCategory")',
+                    dataType: 'json',
+                    data: { id: $("#CategoryList").val() },
+                    
+                    success: function (states) {
+                        $("#SubCategoryList").append('<option value="' + -1 + '">' + "Alt Özellik" + '</option>');
+                        $.each(states, function (i, state) {
+                            $("#SubCategoryList").append('<option value="' + state.value + '">' + state.text + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

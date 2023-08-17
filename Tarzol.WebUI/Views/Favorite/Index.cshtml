@@ -1,0 +1,83 @@
+﻿@model FavoriteProductsModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="main">
+    <div class="container">
+        
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+            <!-- BEGIN SIDEBAR -->
+            <div class="sidebar col-md-3 col-sm-5">
+                @await Component.InvokeAsync("CategoryList")
+            </div>
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="col-md-9 col-sm-7">
+                <h1>FAVORİLERİM</h1>
+                <div class="goods-page">
+                    <div class="goods-data clearfix">
+                        <div class="table-wrapper-responsive">
+                            <table summary="Shopping cart">
+                                <tr>
+                                    <th class="goods-page-image">ÜRÜN RESMİ</th>
+                                    <th class="goods-page-description">AÇIKLAMA</th>
+                                    <th class="goods-page-stock">STOK DURUMU</th>
+                                    <th class="goods-page-price" colspan="2">FİYAT</th>
+                                </tr>
+                                @foreach (var item in Model.Favorites)
+                                {
+                                    @foreach (var product in Model.Products)
+                                    {
+                                        if (item.ProductID == product.ID)
+                                        {
+                                            <tr>
+                                                <td class="goods-page-image">
+                                                    <a asp-action="ViewProduct" asp-controller="Product" asp-route-id="@product.ID"><img src="~/ProductImage/Big/@product.ImageOne" alt="Berry Lace Dress"></a>
+                                                </td>
+                                                <td class="goods-page-description">
+                                                    <h3><a asp-action="ViewProduct" asp-controller="Product" asp-route-id="@product.ID">@product.ProductName</a></h3>
+                                                    <p><strong>@product.ProductCode</strong> - Renk: @product.ProductColor.Color; Beden: @product.ProductSize.Size</p>
+                                                    Ürünün Markası: <strong>@product.TradeMark</strong>
+                                                </td>
+                                                <td class="goods-page-stock">
+                                                    @if (product.UnitsInStock > 30)
+                                                    {
+                                                        <strong>Mevcut</strong>
+                                                    }
+                                                    else if (product.UnitsInStock < 10)
+                                                    {
+                                                        <strong style="color:red">Tükeniyor</strong>
+                                                    }
+                                                    else
+                                                    {
+                                                        <strong style="color:orange">Azalıyor</strong>
+                                                    }
+                                                </td>
+                                                <td class="goods-page-price">
+                                                    <strong>@product.MarketPrice.ToString("0.00")<span>TL</span></strong>
+                                                </td>
+                                                <td class="del-goods-col">
+                                                    <a class="del-goods" asp-action="DeleteFavorite" asp-controller="Favorite" asp-route-favoriteId="@item.ID">&nbsp;</a>
+                                                    <a class="add-goods" href="javascript:;">&nbsp;</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+
+                                }
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END SIDEBAR & CONTENT -->
+    </div>
+</div>
+

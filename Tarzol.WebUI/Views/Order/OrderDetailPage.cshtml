@@ -1,0 +1,104 @@
+﻿@model OrderDetailPageModel
+@{
+    ViewData["Title"] = "OrderDetailPage";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="main">
+    <div class="container">
+
+        <div class="row margin-bottom-40">
+         
+
+            <div class="col-md-12">
+                <h1>@Model.Order.OrderNumber NOLU SİPARİŞ DETAYLARI</h1>
+                <small>@Model.Order.OrderDate TARİHİNDE SİPARİŞ VERİLDİ </small><br /><br />
+                <div class="goods-page">
+                    <div class="goods-data clearfix">
+                        <div class="table-wrapper-responsive">
+                            <table summary="Shopping cart">
+                                <tr>
+                                    <th class="goods-page-image">RESİM</th>
+                                    <th class="goods-page-description">AÇIKLAMA</th>
+                                    <th class="goods-page-ref-no">ÜRÜN KODU</th>
+                                    <th class="goods-page-quantity">ADET</th>
+                                    <th class="goods-page-price" style="padding-left:10px;">FİYAT</th>
+                                    <th class="goods-page-total" colspan="2">TESLİMAT DURUMU</th>
+                                </tr>
+                               
+                                @foreach (var orderDetail in Model.orderDetails)
+                                {
+                                   
+                                      
+                            <tr>
+                                <td class="goods-page-image">
+                                    <a asp-action="ViewProduct" asp-controller="Product" asp-route-id="@orderDetail.ProductID"><img src="~/ProductImage/Big/@orderDetail.Product.ImageOne" alt="Berry Lace Dress"></a>
+                                </td>
+                                <td class="goods-page-description">
+                                    <strong><a href="javascript:;">@orderDetail.Product.TradeMark</a></strong>
+                                    <p><strong>@orderDetail.Product.ProductName</strong> <br /> Renk: @orderDetail.Product.ProductColor.Color; Beden: @orderDetail.Product.ProductSize.Size</p>
+
+                                </td>
+                                <td>
+                                    <span style="font-size:16px;">@orderDetail.Product.ProductCode</span>
+                                </td>
+                                <td style="font-size:16px;">
+                                    <div>
+
+                                        <span>@orderDetail.Quantity</span>
+
+                                    </div>
+
+                                </td>
+
+                                <td style="font-size:16px;">
+                                    <span>@((orderDetail.UnitPrice *orderDetail.Quantity).ToString("0.00"))<span>TL</span></span>
+                                </td>
+                                <td class="goods-page-total">
+                                    <strong>
+                                        @if (@orderDetail.WasDelivered)
+                                        {
+                                            <span>Teslim Edildi</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Henüz Teslim Edilmedi</span>
+                                        }
+                                </strong>
+                            </td>
+                            @if (orderDetail.WasDelivered)
+                            {
+                                <td class="del-goods-col">
+                                    <a asp-action="ProductEvaluation" asp-controller="ProductEvaluation" asp-route-orderID="@orderDetail.OrderID" asp-route-productID="@orderDetail.ProductID" class="btn btn-primary" style="color:#fff !important;">DEĞERLENDİR &nbsp;<i class="glyphicon glyphicon-star"></i></a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <span>Teslim Edildiğinde Değerlendirebilirsiniz.</span>
+                                </td>
+                            }
+                            </tr>
+                                            
+                                       
+
+                                    
+                                }
+
+
+
+                            </table>
+                        </div>
+
+                        
+                    </div>
+                    <a style="float:right !important; margin-right:10px;" asp-action="Index" asp-controller="Order" class="btn btn-default">TÜM SİPARİŞLERİM &nbsp;<i class="glyphicon glyphicon-list-alt"></i></a>
+                   
+                </div>
+            </div>
+            <!-- END CONTENT -->
+        </div>
+
+    </div>
+</div>
+

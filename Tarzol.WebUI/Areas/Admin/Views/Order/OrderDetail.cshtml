@@ -1,0 +1,142 @@
+﻿@model List<OrderDetail>
+@{
+    ViewData["Title"] = "OrderDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Sipariş Detayları</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="index.html">Siparişler</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a>Tüm Siparişler</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>Sipariş Detayları</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+
+
+    <div class="row">
+        <div class="col-md-9">
+
+            <div class="ibox">
+                <div class="ibox-title">
+                    <span class="float-right">(<strong>@Model.Count</strong>) ürün</span>
+                    <h5>Siparişteki Ürünler</h5>
+                </div>
+                @foreach (var item in Model)
+                {
+                    <div class="ibox-content">
+
+
+                        <div class="table-responsive">
+                            <table class="table shoping-cart-table">
+
+                                <tbody>
+
+                                    <tr>
+                                        <td width="90">
+
+                                            <img src="~/ProductImage/Big/@item.Product.ImageOne" style="width:80px;height:100px;">
+
+                                        </td>
+                                        <td class="desc">
+                                            <h3>
+                                                <a href="#" class="text-navy">
+                                                    @item.Product.ProductName
+                                                </a>
+                                            </h3>
+                                            <p class="small">
+                                                @item.Product.Description
+                                            </p>
+                                            <dl class="small m-b-none">
+                                                <dt>@item.Product.Seller.CompanyName</dt>
+                                                <dd>Beden: @item.Product.ProductSize.Size | Renk: @item.Product.ProductColor.Color</dd>
+                                            </dl>
+
+                                            <div class="m-t-sm">
+                                                <a href="#" class="text-muted">Ürün ID: @item.ProductID</a>
+                                                |
+                                                <a href="#" class="text-muted">Sipariş ID: @item.OrderID</a>
+
+                                            </div>
+                                        </td>
+
+                                        <td width="150">
+                                            <h5>Adet Fiyatı: </h5>
+                                            <h5>Adet: </h5>
+                                            <br /><br /><br />
+                                            @if (item.WasDelivered == true)
+                                            {
+                                                <a class="btn btn-primary btn-sm" style="float:right;color:#fff;margin-right:-40px;">Teslim Edildi</a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-warning btn-sm" style="float:right;color:#fff;margin-right:-40px;">Devam Ediyor</a>
+                                            }
+                                        </td>
+
+                                        <td>
+                                            <h5 style="text-align:left">
+                                                @item.UnitPrice.ToString("0.00") ₺
+                                            </h5>
+
+                                            <h5 style="text-align:left">@item.Quantity</h5>
+
+                                        </td>
+                                    </tr>
+                                    
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                }
+                </div>
+
+        </div>
+        <div class="col-md-3">
+
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Sipariş Özeti</h5>
+                </div>
+                <div class="ibox-content">
+                    <span>
+                        Toplam
+                    </span>
+                    <h2 class="font-bold">
+                        @ViewBag.orderTotal.ToString("0.00") ₺
+                    </h2>
+
+                    <hr />
+                    <span>
+                        Teslim Edilen: @Model.Count(i => i.WasDelivered == true) ürün
+                    </span><br />
+                    <span>
+                        Teslimatı Devam Eden: @Model.Count(i => i.WasDelivered == false) ürün
+                    </span>
+                </div>
+            </div>
+
+           
+                  
+
+                </div>
+            </div>
+
+        </div>
+    

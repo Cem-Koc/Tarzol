@@ -1,0 +1,50 @@
+﻿@model List<Product>
+
+    <div class="top-cart-block">
+        <div class="top-cart-info">
+            
+            <a href="javascript:void(0);" class="top-cart-info-count">@ViewBag.cartCount Ürün</a>
+            <a href="javascript:void(0);" class="top-cart-info-value">@ViewBag.cartTotalPrice</a>
+        </div>
+        <i class="fa fa-shopping-cart"></i>
+
+        <div class="top-cart-content-wrapper">
+
+
+            @if (ViewBag.cart == null)
+            {
+
+            }
+            else
+            {
+                <div class="top-cart-content">
+                    <ul class="scroller" style="height: 250px;">
+                        @foreach (var product in Model)
+                        {
+                            @foreach (var item in ViewBag.cart)
+                            {
+
+                                if (product.ID == item.ProductID)
+                                {
+                                    <li>
+                                        <a asp-action="ViewProduct" asp-controller="Product" asp-route-id="@product.ID"><img src="~/ProductImage/Big/@product.ImageOne" alt="Rolex Classic Watch" width="37" height="34"></a>
+                                        <span class="cart-content-count">@item.Quantity</span>
+                                        <strong><a href="#">@product.ProductName.Substring(0, 15)...</a></strong>
+                                        <em>@product.DiscountedPrice.ToString("0.00")TL</em>
+                                        <a asp-controller="Cart" asp-action="Remove" asp-route-id="@product.ID" class="del-goods">&nbsp;</a>
+                                    </li>
+
+
+                                }
+                            }
+                        }
+                    </ul>
+                    <div class="text-right">
+                        <a href="/Cart/Index/" class="btn btn-default">Sepete Git</a>
+                        <a asp-action="AddCustomer" asp-controller="Customer" class="btn btn-primary">Sipariş Ver</a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>

@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32602.291
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tarzol.Core", "Tarzol.Core\Tarzol.Core.csproj", "{E9CA7352-D212-4606-9874-08722B1A2BE7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tarzol.Entity", "Tarzol.Entity\Tarzol.Entity.csproj", "{7D1604B7-BE6A-4122-9C3D-3F284C22243E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tarzol.Mapping", "Tarzol.Mapping\Tarzol.Mapping.csproj", "{13753829-EA32-42CF-9E3C-828CCC066559}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tarzol.DataAccess", "Tarzol.DataAccess\Tarzol.DataAccess.csproj", "{A17F125B-E333-41C4-AA90-5A721F9DAD52}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tarzol.WebUI", "Tarzol.WebUI\Tarzol.WebUI.csproj", "{3950AF97-51F8-467A-96CE-9E5939BEEBEF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tarzol.Business", "Tarzol.Business\Tarzol.Business.csproj", "{C66541E1-8B3C-4EC1-A47A-161A88B3F2B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarzol.AutoMapperTier", "Tarzol.AutoMapperTier\Tarzol.AutoMapperTier.csproj", "{22892FE9-1812-4533-BC00-DD9A07CD437D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E9CA7352-D212-4606-9874-08722B1A2BE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9CA7352-D212-4606-9874-08722B1A2BE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9CA7352-D212-4606-9874-08722B1A2BE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9CA7352-D212-4606-9874-08722B1A2BE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D1604B7-BE6A-4122-9C3D-3F284C22243E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D1604B7-BE6A-4122-9C3D-3F284C22243E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D1604B7-BE6A-4122-9C3D-3F284C22243E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D1604B7-BE6A-4122-9C3D-3F284C22243E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13753829-EA32-42CF-9E3C-828CCC066559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13753829-EA32-42CF-9E3C-828CCC066559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13753829-EA32-42CF-9E3C-828CCC066559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13753829-EA32-42CF-9E3C-828CCC066559}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A17F125B-E333-41C4-AA90-5A721F9DAD52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A17F125B-E333-41C4-AA90-5A721F9DAD52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A17F125B-E333-41C4-AA90-5A721F9DAD52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A17F125B-E333-41C4-AA90-5A721F9DAD52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3950AF97-51F8-467A-96CE-9E5939BEEBEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3950AF97-51F8-467A-96CE-9E5939BEEBEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3950AF97-51F8-467A-96CE-9E5939BEEBEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3950AF97-51F8-467A-96CE-9E5939BEEBEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C66541E1-8B3C-4EC1-A47A-161A88B3F2B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C66541E1-8B3C-4EC1-A47A-161A88B3F2B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C66541E1-8B3C-4EC1-A47A-161A88B3F2B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C66541E1-8B3C-4EC1-A47A-161A88B3F2B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22892FE9-1812-4533-BC00-DD9A07CD437D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22892FE9-1812-4533-BC00-DD9A07CD437D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22892FE9-1812-4533-BC00-DD9A07CD437D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22892FE9-1812-4533-BC00-DD9A07CD437D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C42AF4CA-AFA5-4D5E-96A4-B0D19458F568}
+	EndGlobalSection
+EndGlobal

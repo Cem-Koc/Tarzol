@@ -1,0 +1,25 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "ProductEkle";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<form asp-action="ProductAdd" asp-controller="Product" method="post" style="margin:50px;">
+    <label>Ürün Adı</label>
+    <input type="text" asp-for="ProductName" class="form-control" /><br />
+    <label>Marka</label>
+    <input type="text" asp-for="TradeMark" class="form-control" /><br />
+    <label>Ürün Kodu</label>
+    <input type="text" asp-for="ProductCode" class="form-control" /><br />
+    <label>Ürün Piyasa Fiyatı</label>
+    <input type="text" asp-for="MarketPrice" class="form-control" /><br />
+    <label>Tarzol'a Özel Fiyat</label>
+    <input type="text" asp-for="DiscountedPrice" class="form-control" /><br />
+    <label>Stok Adeti</label>
+    <input type="text" asp-for="UnitsInStock" class="form-control" /><br />
+
+    <select class="form-control" asp-items="ViewBag.Cate" asp-for="CategoryID"></select><br />
+
+    <button type="submit" class="btn btn-primary">Ürün Oluştur</button>
+</form>
+

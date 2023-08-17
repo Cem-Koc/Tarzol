@@ -1,0 +1,26 @@
+﻿@model NotificationFoldersModel
+<div class="col-lg-3">
+    <div class="ibox ">
+        <div class="ibox-content mailbox-content">
+            <div class="file-manager">
+               
+                <div class="space-25"></div>
+                <h5>Klasörler</h5>
+                <ul class="folder-list m-b-md" style="padding: 0">
+                    <li>
+                        <a asp-action="Index">
+                            <i class="fa fa-inbox "></i> Yeni Bildirimler @if (Model.NewNotificationCount != 0)
+                            {
+                                <span class="label label-warning float-right">@Model.NewNotificationCount</span>
+                            }
+                        </a>
+                    </li>
+                    <li><a asp-action="ReadNotification"> <i class="fa fa-envelope-o"></i> Geçmiş Bildirimler</a></li>
+                    
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+﻿
+
+            <!-- BEGIN SIDEBAR -->
+            <div class="sidebar col-md-3 col-sm-5">
+                <ul class="list-group margin-bottom-25 sidebar-menu">
+                    <li class="list-group-item clearfix"><a asp-action="Index" asp-route-userName="@User.Identity.Name"><i class="glyphicon glyphicon-home"></i>&nbsp; ANA SAYFA</a></li>
+                    <li class="list-group-item clearfix dropdown">
+                        <a href="shop-product-list.html" class="collapsed">
+                            <i class="glyphicon glyphicon-chevron-right"></i>
+                            &nbsp;ÜRÜNLER
+
+                        </a>
+                        <ul class="dropdown-menu" style="display:block;">
+
+                            <li><a asp-action="SellerProducts" asp-route-userName="@User.Identity.Name"><i class="glyphicon glyphicon-list-alt"></i> &nbsp;SATIŞTAKİ ÜRÜNLERİM</a></li>
+                            <li><a asp-action="ProductAdd" asp-controller="Seller"><i class="glyphicon glyphicon-plus-sign"></i> &nbsp;ÜRÜN EKLE</a></li>
+                            <li><a asp-action="PassiveProductList" asp-route-userName="@User.Identity.Name"><i class="glyphicon glyphicon-minus-sign"></i> &nbsp;PASİF ÜRÜNLER</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="list-group-item clearfix"><a asp-action="SellerAnswer" asp-route-userName="@User.Identity.Name"><i class="glyphicon glyphicon-question-sign"></i> &nbsp;SORU & CEVAP</a></li>
+                    <li class="list-group-item clearfix"><a asp-action="ActiveOrder"><i class="glyphicon glyphicon-shopping-cart"></i> &nbsp;AKTİF SİPARİŞLER</a></li>
+                    <li class="list-group-item clearfix"><a asp-action="DeliveredOrder"><i class="glyphicon glyphicon-ok"></i> &nbsp;TAMAMLANAN SİPARİŞLER</a></li>
+                    <li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="glyphicon glyphicon-alert"></i> &nbsp;İADELER</a></li>
+                    <li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="glyphicon glyphicon-bell"></i> &nbsp;BİLDİRİMLER</a></li>
+                    <li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="glyphicon glyphicon-envelope"></i> &nbsp;MESAJLAR</a></li>
+                    <li class="list-group-item clearfix"><a href="shop-product-list.html"><i class="glyphicon glyphicon-user"></i> &nbsp;PROFİL</a></li>
+
+
+
+                </ul>
+
+            </div>
+        

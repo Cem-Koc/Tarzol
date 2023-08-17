@@ -1,0 +1,139 @@
+﻿@model List<Product>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Ürün Listesi</h2>
+        @*<ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="index.html">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a>E-commerce</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>Product list</strong>
+            </li>
+        </ol>*@
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight ecommerce">
+
+
+    <div class="ibox-content m-b-sm border-bottom">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="col-form-label" for="product_name">Ürün İsmi</label>
+                    <input type="text" id="product_name" name="product_name" value="" placeholder="Product Name" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="col-form-label" for="price">Fiyat</label>
+                    <input type="text" id="price" name="price" value="" placeholder="Price" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="col-form-label" for="quantity">Adet</label>
+                    <input type="text" id="quantity" name="quantity" value="" placeholder="Quantity" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="col-form-label" for="status">Statü</label>
+                    <select name="status" id="status" class="form-control">
+                        <option value="1" selected>Aktif</option>
+                        <option value="0">Pasif</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-content">
+
+                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+                        <thead>
+                            <tr>
+
+                                <th data-toggle="true">Ürün İsmi</th>
+                                <th data-hide="phone">Model</th>
+                                <th data-hide="all">Açıklama</th>
+                                <th data-hide="phone">Fiyat</th>
+                                <th data-hide="phone,tablet">Adet</th>
+                                <th data-hide="phone">Statü</th>
+                                <th class="text-right" data-sort-ignore="true">Aksiyon</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @product.ProductName
+                                    </td>
+                                    <td>
+                                        @product.ProductCode
+                                    </td>
+                                    <td>
+                                       @product.Description
+                                    </td>
+                                    <td>
+                                        @product.DiscountedPrice
+                                    </td>
+                                    <td>
+                                        @product.UnitsInStock
+                                    </td>
+                                    <td>
+                                        @if (product.Status == Tarzol.Core.Enums.Status.Active)
+                                        {
+                                            <span class="label label-primary">@product.Status</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="label label-danger">@product.Status</span>
+                                        }
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group">
+                                            <button class="btn-white btn btn-xs">Görüntüle</button>
+                                            <button class="btn-white btn btn-xs">Düzenle</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+
+
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    <ul class="pagination float-right"></ul>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

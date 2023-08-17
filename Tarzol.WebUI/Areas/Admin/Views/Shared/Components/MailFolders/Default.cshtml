@@ -1,0 +1,41 @@
+﻿@model MailFoldersModel
+<div class="col-lg-3">
+    <div class="ibox ">
+        <div class="ibox-content mailbox-content">
+            <div class="file-manager">
+                <a class="btn btn-block btn-primary compose-mail" asp-action="ComposeMail" asp-controller="Message">Eposta Oluştur</a>
+                <div class="space-25"></div>
+                <h5>Klasörler</h5>
+                <ul class="folder-list m-b-md" style="padding: 0">
+                    <li>
+                        <a asp-action="Index">
+                            <i class="fa fa-inbox "></i> Gelen Kutusu(@Model.InboxCount) @if (Model.InboxUnreadCount != 0)
+                            {
+                                <span class="label label-warning float-right">@Model.InboxUnreadCount</span>
+                            }
+                        </a>
+                    </li>
+                    <li><a asp-action="SendMail"> <i class="fa fa-envelope-o"></i> Gönderilenler(@Model.SendMailCount)</a></li>
+                    <li>
+                        <a asp-action="ImportantMailList">
+                            <i class="fa fa-certificate"></i> Önemli(@Model.ImportantCount) @if (Model.ImportantUnreadCount != 0)
+                            {
+                                <span class="label label-danger float-right">@Model.ImportantUnreadCount</span>
+                            }
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-action="DeleteMailList">
+                            <i class="fa fa-trash-o"></i> Silinenler(@Model.DeletedMailCount) @if (Model.DeletedMailUnreadCount != 0)
+                            {
+                                <span class="label label-default float-right">@Model.DeletedMailUnreadCount</span>
+                            }
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

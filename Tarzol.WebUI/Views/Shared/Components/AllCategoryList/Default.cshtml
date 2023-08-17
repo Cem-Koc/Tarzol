@@ -1,0 +1,94 @@
+﻿@model List<CategoryAndSubCategory>
+
+<div class="header-navigation">
+    <ul>
+        @{var c = @Model.Select(i => i.Category.CategoryName).Distinct().ToArray();
+
+        }
+       
+
+        @foreach (var item in c)
+        {
+
+
+        <li class="dropdown dropdown-megamenu">
+
+
+
+            @*@if (sayac < c.Count())
+            {
+                ViewBag.catstring = c[sayac].ToString();
+                <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">
+                    @ViewBag.catstring
+                </a>
+                sayac++;
+            }*@
+
+            <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">
+                @Model.Where(i => i.Category.CategoryName == item).FirstOrDefault().Category.CategoryName
+                       
+            </a>
+
+
+            <ul class="dropdown-menu">
+                <li>
+                    <div class="header-navigation-content">
+                        <div class="row">
+                            <div class="col-md-4 header-navigation-col">
+
+                                <ul>
+
+                                    @{ var subcat = Model.Where(i => i.Category.CategoryName == item).Select(x => x.SubCategoryID).ToList();
+                                    }
+
+                                    @foreach (var subid in subcat)
+                                    {
+                                        <li>
+                                            <a href="shop-product-list.html">
+                                                @Model.Where(i => i.SubCategoryID == subid).FirstOrDefault().SubCategory.SubCategoryName
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-md-4 header-navigation-col">   
+                             
+                                <img src="~/ProductImage/CategoryImage/images-14-1.jpeg" width="370"/>
+                            </div>
+                            <div class="col-md-12 nav-brands">
+                                <ul>
+                                    <li><a href="shop-product-list.html"><img title="esprit" alt="esprit" src="~/Metronic-Shop-UI-master/theme/assets/pages/img/brands/esprit.jpg"></a></li>
+                                    <li><a href="shop-product-list.html"><img title="gap" alt="gap" src="~/Metronic-Shop-UI-master/theme/assets/pages/img/brands/gap.jpg"></a></li>
+                                    <li><a href="shop-product-list.html"><img title="next" alt="next" src="~/Metronic-Shop-UI-master/theme/assets/pages/img/brands/next.jpg"></a></li>
+                                    <li><a href="shop-product-list.html"><img title="puma" alt="puma" src="~/Metronic-Shop-UI-master/theme/assets/pages/img/brands/puma.jpg"></a></li>
+                                    <li><a href="shop-product-list.html"><img title="zara" alt="zara" src="~/Metronic-Shop-UI-master/theme/assets/pages/img/brands/zara.jpg"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        }
+
+
+
+
+        <!-- BEGIN TOP SEARCH -->
+        <li class="menu-search">
+            <span class="sep"></span>
+            <i class="fa fa-search search-btn"></i>
+            <div class="search-box">
+                <form action="#">
+                    <div class="input-group">
+                        <input type="text" placeholder="Search" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit">Search</button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </li>
+        <!-- END TOP SEARCH -->
+    </ul>
+</div>
